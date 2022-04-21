@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32414.318
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DATN_DrugstoreManagement", "DATN_DrugstoreManagement\DATN_DrugstoreManagement.csproj", "{C54EC753-1295-4A41-B469-4BE31BAEB54D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrugstoreManagement.Data", "DrugstoreManagement.Data\DrugstoreManagement.Data.csproj", "{C66A07BA-118C-403D-AAE0-27042029BC3F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C54EC753-1295-4A41-B469-4BE31BAEB54D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54EC753-1295-4A41-B469-4BE31BAEB54D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54EC753-1295-4A41-B469-4BE31BAEB54D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54EC753-1295-4A41-B469-4BE31BAEB54D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C66A07BA-118C-403D-AAE0-27042029BC3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C66A07BA-118C-403D-AAE0-27042029BC3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C66A07BA-118C-403D-AAE0-27042029BC3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C66A07BA-118C-403D-AAE0-27042029BC3F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {404EB5FB-88C4-4D0D-B862-3E813275607B}
+	EndGlobalSection
+EndGlobal
