@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace DrugstoreManagement.Data.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
+    [Table("Products")]
     public class Product
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Product()
+        {
+            ImportBillDetails = new HashSet<ImportBillDetail>();
+            ImportInventoryBillDetails = new HashSet<ImportInventoryBillDetail>();
+            PrescriptionDetails = new HashSet<PrescriptionDetail>();
+            UnitPrices = new HashSet<UnitPrice>();
+        }
+
         public int id { get; set; }
 
         [StringLength(50)]
@@ -18,15 +25,21 @@ namespace DrugstoreManagement.Data.Entities
         [StringLength(250)]
         public string name { get; set; }
 
-        public int idCategory { get; set; }
+        public int? idCategory { get; set; }
 
         [StringLength(250)]
-        public string MetaTitle { get; set; }
+        public string metaTitle { get; set; }
 
         public string Description { get; set; }
 
+        [StringLength(30)]
+        public string registrationNumber { get; set; }
+
         [StringLength(100)]
         public string batchNo { get; set; }
+
+        [StringLength(100)]
+        public string component { get; set; }
 
         [StringLength(100)]
         public string dosage { get; set; }
@@ -62,5 +75,19 @@ namespace DrugstoreManagement.Data.Entities
         public int? status { get; set; }
 
         public bool? statusDelete { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImportBillDetail> ImportBillDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImportInventoryBillDetail> ImportInventoryBillDetails { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PrescriptionDetail> PrescriptionDetails { get; set; }
+
+        public virtual ProductCategory ProductCategory { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UnitPrice> UnitPrices { get; set; }
     }
 }
