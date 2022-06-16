@@ -8,6 +8,7 @@ namespace DrugsoreManagement.BackendApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -16,18 +17,47 @@ namespace DrugsoreManagement.BackendApi.Controllers
             _userService = userService;
 
         }
-        [HttpPost]
+        [HttpPost("authenticate")]
         [AllowAnonymous]
-        public async Task<IActionResult> Authenticate([FromBody]LoginRequest request)
+        public async Task<IActionResult> Authenticate([FromBody] LoginRequest request)
         {
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             var resultToken = await _userService.Authencate(request);
             if (string.IsNullOrEmpty(resultToken.ToString()))
             {
-                return BadRequest("Thông tin đăng nhập sai");
+                return BadRequest(resultToken);
             }
-            return Ok(new { token = resultToken });
+            return Ok(resultToken);
         }
+        [HttpPost("createAcount")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Register(request);
+            if (!result)
+            {
+                return BadRequest("Thất bại");
+            }
+            return Ok("Thành công");
+        }
+
+        //http://localhost/api/users/paging?pageIndex=1&pageSize=10&keyword=
+        [HttpGet("paging")]
+        public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)
+        {
+            var users = await _userService.GetUsersPaging(request);
+            return Ok(users);
+        }
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetById(Guid id)
+        //{
+        //    var user = await _userService.GetById(id);
+        //    return Ok(user);
+        //}
     }
 }

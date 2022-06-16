@@ -9,12 +9,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Quản Lý Nhà thuốc</title>
+  <title>Dashboard - NiceAdmin Bootstrap Template</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/assets/img/logo.png" rel="icon">
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -46,9 +47,9 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a asp-area="" asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
-        <img src="/Resouse/gpp-login-2.png" alt="" width="32" height="50"/>
-        <span class="d-none d-lg-block">Quản lý nhà thuốc</span>
+      <a class="logo d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+        <img src="/assets/img/logo.png" alt="logo">
+        <span class="d-none d-lg-block" style="color: #198754">Quản lý nhà thuốc</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -64,14 +65,14 @@
       <ul class="d-flex align-items-center">
 
         <li class="nav-item d-block d-lg-none">
-          <a class="nav nav-icon search-bar-toggle " href="#">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
             <i class="bi bi-search"></i>
           </a>
         </li><!-- End Search Icon-->
 
         <li class="nav-item dropdown">
 
-          <a class="nav nav-icon" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number">4</span>
           </a><!-- End Notification Icon -->
@@ -144,77 +145,77 @@
 
         </li><!-- End Notification Nav -->
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown"> -->
 
-          <a class="nav nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
+          <!-- <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> -->
+            <!-- <i class="bi bi-chat-left-text"></i> -->
+            <!-- <span class="badge bg-success badge-number">3</span> -->
+          <!-- </a><!-- End Messages Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+          <!-- <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages"> -->
+            <!-- <li class="dropdown-header"> -->
+              <!-- You have 3 new messages -->
+              <!-- <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a> -->
+            <!-- </li> -->
+            <!-- <li> -->
+              <!-- <hr class="dropdown-divider"> -->
+            <!-- </li> -->
 
-            <li class="message-item">
-              <a href="#">
-                <img src="/assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            <!-- <li class="message-item"> -->
+              <!-- <a href="#"> -->
+                <!-- <img src="/assets/img/messages-1.jpg" alt="" class="rounded-circle"> -->
+                <!-- <div> -->
+                  <!-- <h4>Maria Hudson</h4> -->
+                  <!-- <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p> -->
+                  <!-- <p>4 hrs. ago</p> -->
+                <!-- </div> -->
+              <!-- </a> -->
+            <!-- </li> -->
+            <!-- <li> -->
+              <!-- <hr class="dropdown-divider"> -->
+            <!-- </li> -->
 
-            <li class="message-item">
-              <a href="#">
-                <img src="/assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            <!-- <li class="message-item"> -->
+              <!-- <a href="#"> -->
+                <!-- <img src="/assets/img/messages-2.jpg" alt="" class="rounded-circle"> -->
+                <!-- <div> -->
+                  <!-- <h4>Anna Nelson</h4> -->
+                  <!-- <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p> -->
+                  <!-- <p>6 hrs. ago</p> -->
+                <!-- </div> -->
+              <!-- </a> -->
+            <!-- </li> -->
+            <!-- <li> -->
+              <!-- <hr class="dropdown-divider"> -->
+            <!-- </li> -->
 
-            <li class="message-item">
-              <a href="#">
-                <img src="/assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            <!-- <li class="message-item"> -->
+              <!-- <a href="#"> -->
+                <!-- <img src="/assets/img/messages-3.jpg" alt="" class="rounded-circle"> -->
+                <!-- <div> -->
+                  <!-- <h4>David Muldon</h4> -->
+                  <!-- <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p> -->
+                  <!-- <p>8 hrs. ago</p> -->
+                <!-- </div> -->
+              <!-- </a> -->
+            <!-- </li> -->
+            <!-- <li> -->
+              <!-- <hr class="dropdown-divider"> -->
+            <!-- </li> -->
 
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
+            <!-- <li class="dropdown-footer"> -->
+              <!-- <a href="#">Show all messages</a> -->
+            <!-- </li> -->
 
-          </ul><!-- End Messages Dropdown Items -->
+          <!-- </ul><!-- End Messages Dropdown Items -->
 
-        </li><!-- End Messages Nav -->
+        <!-- </li><!-- End Messages Nav -->
 
         <li class="nav-item dropdown pe-3">
 
-          <a class="nav nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">@User.Identity.Name</span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -229,7 +230,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-person"></i>
-                <span>My Profile</span>
+                <span>Thông tin tài khoản</span>
               </a>
             </li>
             <li>
@@ -239,7 +240,7 @@
             <li>
               <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                 <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
+                <span>Đổi mật khẩu</span>
               </a>
             </li>
             <li>
@@ -247,19 +248,9 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" asp-controller="Login" asp-action="Index">
                 <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
+                <span>Đăng xuất</span>
               </a>
             </li>
 
@@ -277,158 +268,173 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav" asp-area="" asp-controller="Home" asp-action="Index">
-          <i class=""><img src="/Resouse/icons8-system-task-100.png" width="40" height="40"/></i>
+        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">
+          <i class="bi"><img src="/assets/Resouse/icons8-system-task-100.png" width="40" height="40"/></i>
           <span>Tổng quan</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li><!-- End Overview Nav -->
+	  
+	  <li class="nav-item">
+        <a class="nav-link " asp-area="" asp-controller="Invoice" asp-action="CreateInvoice">
+          <i class="bi"><img src="/assets/Resouse/icons8-fast-cart-100.png" width="40" height="40"/></i>
+          <span>Bán hàng / Lập hóa đơn</span>
+        </a>
+      </li><!-- End CreateInvoice Nav -->
+	  
+	  <li class="nav-item">
+        <a class="nav-link " asp-area="" asp-controller="Invoice" asp-action="ManageInvoice">
+          <i class="bi"><img src="/assets/Resouse/icons8-credit-control-100.png" width="40" height="40"/></i>
+          <span>Quản lý hóa đơn</span>
+        </a>
+      </li><!-- End InvoicesManagement Nav -->
+	  
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#inventory-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi"><img src="/assets/Resouse/icons8-warehouse-100.png" width="40" height="40"/></i>
+		  <span>Quản lý kho</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="inventory-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="forms-elements.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-favorite-cart-100.png" width="35" height="35"/></i>
+			  <span>Nhập từ nhà cung cấp</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-layouts.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-in-inventory-100.png" width="35" height="35"/></i>
+			  <span>Sản phẩm tồn kho</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-editors.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-new-product-100.png" width="35" height="35"/></i>
+			  <span>Nhập tồn</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Inventory Nav -->
+	
 
       <li class="nav-item">
-        <a class="nav" asp-area="" asp-controller="Invoice" asp-action="CreateInvoice">
-          <i class=""><img src="/Resouse/icons8-invoice-100.png" width="40" height="40"/></i>
-          <span>Lập hoá đơn</span>
+        <a class="nav-link collapsed" data-bs-target="#catagory-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi"><img src="/assets/Resouse/icons8-menu-100.png" width="40" height="40"/></i>
+		  <span>Danh mục</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li><!-- End Dashboard Nav -->
-      <li class="nav-item">
-        <a class="nav " asp-area="" asp-controller="Invoice" asp-action="ManageInvoice">
-          <i class=""><img src="/Resouse/icons8-credit-control-100.png" width="40" height="40"/></i>
-          <span>Quản hoá đơn</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-      <li class="nav-item">
-        <a class="nav collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi"></i><img src="/Resouse/icons8-warehouse-100.png" width="40" height="40"/><span>Quản lý kho</span><i class="bi bi-chevron-down ms-auto"></i>
-         
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="catagory-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="nhaptunhacungcap.html">
-              <i class="bi"></i><img src="/Resouse/icons8-favorite-cart-100.png" width="35" height="35"/><span>Nhập từ nhà cung cấp</span>
+            <a href="forms-elements.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-product-documents-100.png" width="35" height="35"/></i>
+			  <span>Nhóm sản phẩm</span>
             </a>
           </li>
           <li>
-            <a href="tonkho.html">
-              <i class="bi"></i><img src="/Resouse/icons8-product-100.png" width="35" height="35"/><span>Tồn kho</span>
+            <a href="forms-layouts.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-team-100.png" width="35" height="35"/></i>
+			  <span>Nhóm nhà cung cấp</span>
             </a>
           </li>
           <li>
-            <a href="nhapton.html">
-              <i class="bi"></i><img src="/Resouse/icons8-product-100.png" width="35" height="35"/><span>Nhập tồn</span>
+            <a href="forms-editors.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-supplier-100.png" width="35" height="35"/></i>
+			  <span>Nhà cung cấp</span>
             </a>
           </li>
-          
+          <li>
+            <a href="forms-validation.html">
+             <i class="bi">
+			  <img src="/assets/Resouse/icons8-customer-100.png" width="35" height="35"/></i>
+			  <span>Khách hàng</span>
+            </a>
+          </li>
         </ul>
-      </li><!-- End Dashboard Nav -->
-     
-      <li class="nav-item">
-        <a class="nav collapsed" data-bs-target="#danhmuc" data-bs-toggle="collapse" href="#">
-          <i class="bi"></i><img src="/Resouse/icons8-menu-100.png" width="40" height="40"/><span>Danh mục</span><i class="bi bi-chevron-down ms-auto"></i>
-         
+      </li><!-- End Catagory Nav -->
+	  
+	  <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi"><img src="/assets/Resouse/icons8-microsoft-sharepoint-100.png" width="40" height="40"/></i>
+          <span>Thông tin cửa hàng</span>
         </a>
-        <ul id="danhmuc" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="danhmuc-nhomsp.html">
-              <i class="bi"></i><img src="/Resouse/icons8-product-documents-100.png" width="35" height="35"/><span>Nhóm sản phẩm</span>
-            </a>
-          </li>
-          <li>
-            <a href="danhmuc-nhomcungcap.html">
-              <i class="bi"></i><img src="/Resouse/icons8-team-100.png" width="35" height="35"/><span>Nhóm nhà cung cấp</span>
-            </a>
-          </li>
-          <li>
-            <a href="danhmuc-khachhang.html">
-              <i class="bi"></i><img src="/Resouse/icons8-customer-100.png" width="35" height="35"/><span>Khách hàng</span>
-            </a>
-          </li>
-          <li>
-            <a href="danhmuc-ncc.html">
-              <i class="bi"></i><img src="/Resouse/icons8-supplier-100.png" width="35" height="35"/><span>Nhà cung cấp</span>
-            </a>
-          </li>
-          <li>
-            <a href="danhmuc-sp.html">
-              <i class="bi"></i><img src="/Resouse/icons8-product-management-100.png" width="35" height="35"/><span>Sản phẩm</span>
-            </a>
-          </li>
-          </ul>
-      </li><!-- End Dashboard Nav -->
-      <li class="nav-item">
-        <a class="nav " href="thongtindn.html">
-          <i class=""><img src="/Resouse/icons8-microsoft-sharepoint-100.png" width="40" height="40"/></i>
-          <span>Thông tin doanh nghiệp</span>
+      </li><!-- End EnterpriseInfo Nav -->
+	  
+	  <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi"><img src="/assets/Resouse/icons8-myspace-100.png" width="40" height="40"/></i>
+		  <span>Quản lý người dùng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-      </li>
+        <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="forms-elements.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-user-groups-100.png" width="35" height="35"/></i>
+			  <span>Nhóm người dùng</span>
+            </a>
+          </li>
+          <li>
+            <a href="forms-layouts.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-user-100.png" width="35" height="35"/></i>
+			  <span>Người dùng</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End User Nav -->
+	
+
       <li class="nav-item">
-        <a class="nav collapsed" data-bs-target="#nguoidung" data-bs-toggle="collapse" href="#">
-          <i class="bi"></i><img src="/Resouse/icons8-myspace-100.png" width="40" height="40"/><span>Quản lý người dùng</span><i class="bi bi-chevron-down ms-auto"></i>
-         
+        <a class="nav-link collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi"><img src="/assets/Resouse/icons8-graph-report-100.png" width="40" height="40"/></i>
+		  <span>Báo cáo</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="nguoidung" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="nguoidung-nd.html">
-              <i class="bi"></i><img src="/Resouse/icons8-user-100.png" width="35" height="35"/><span>Người dùng</span>
+            <a href="forms-elements.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-bill-100.png" width="35" height="35"/></i>
+			  <span>Bán hàng</span>
             </a>
           </li>
           <li>
-            <a href="baocao-nhaphang.html">
-              <i class="bi"></i><img src="/Resouse/icons8-user-groups-100.png" width="35" height="35"/><span>Nhóm người dùng</span>
+            <a href="forms-layouts.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-buy-100.png" width="35" height="35"/></i>
+			  <span>Nhập hàng</span>
             </a>
           </li>
-         
-         
-          </ul>
-      </li><!-- End Dashboard Nav -->
+          <li>
+            <a href="forms-editors.html">
+              <i class="bi">
+			  <img src="/assets/Resouse/icons8-warehouse-100.png" width="35" height="35"/></i>
+			  <span>Nhập tồn</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Reprot Nav -->
+
+      <li class="nav-heading">Pages</li>
+
       <li class="nav-item">
-        <a class="nav " href="thietlap.html">
-          <i class=""><img src="/Resouse/icons8-settings-100.png" width="40" height="40"/></i>
+        <a class="nav-link collapsed" href="index.html">
+          <i class="bi"><img src="/assets/Resouse/icons8-settings-100.png" width="40" height="40"/></i>
           <span>Thiết lập</span>
         </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav collapsed" data-bs-target="#baocao" data-bs-toggle="collapse" href="#">
-          <i class="bi"></i><img src="/Resouse/icons8-graph-report-100.png" width="40" height="40"/><span>Báo cáo</span><i class="bi bi-chevron-down ms-auto"></i>
-         
-        </a>
-        <ul id="baocao" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="baocao-banhang.html">
-              <i class="bi"></i><img src="/Resouse/icons8-bill-100.png" width="35" height="35"/><span>Bán hàng</span>
-            </a>
-          </li>
-          <li>
-            <a href="baocao-nhaphang.html">
-              <i class="bi"></i><img src="/Resouse/icons8-buy-100.png" width="35" height="35"/><span>Nhập hàng</span>
-            </a>
-          </li>
-          <li>
-            <a href="baocao-nhapton.html">
-              <i class="bi"></i><img src="/Resouse/icons8-warehouse-100.png" width="35" height="35"/><span>Nhập tồn</span>
-            </a>
-          </li>
-          <li>
-            <a href="baocao-mail.html">
-              <i class="bi"></i><img src="/Resouse/icons8-group-message-100.png" width="35" height="35"/><span>Gửi mail</span>
-            </a>
-          </li>
-         
-          </ul>
-      </li><!-- End Dashboard Nav -->
-      <li class="nav-item">
-        <a class="nav " href="thietlap.html">
-          <i class=""><img src="/Resouse/icons8-settings-100.png" width="40" height="40"/></i>
-          <span>Thiết lập</span>
-        </a>
-      </li>
+      </li><!-- End Profile Page Nav -->
+
+      
+
     </ul>
 
   </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
-
-    @RenderBody()
-   
+      @RenderBody()
 
   </main><!-- End #main -->
 

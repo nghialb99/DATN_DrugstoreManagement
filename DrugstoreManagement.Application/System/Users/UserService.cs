@@ -3,6 +3,7 @@ using DrugstoreManagement.Utilities.Exceptions;
 using DrugstoreManagement.ViewModels.Common;
 using DrugstoreManagement.ViewModels.System.Users;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -43,7 +44,7 @@ namespace DrugstoreManagement.Application.System.Users
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
-                new Claim(ClaimTypes.GivenName,user.FirstName),
+                new Claim(ClaimTypes.GivenName,user.LastName+" "+user.FirstName),
                 new Claim(ClaimTypes.Role, string.Join(";",roles)),
                 new Claim(ClaimTypes.Name, request.UserName)
             };
@@ -58,35 +59,78 @@ namespace DrugstoreManagement.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-
-        public async Task<ApiResult<bool>> Register(RegisterRequest request)
+        public async Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
         {
-            //var user = await _userManager.FindByNameAsync(request.UserName);
+            var query = _userManager.Users;
+            if (!string.IsNullOrEmpty(request.keyword))
+            {
+                query = query.Where(x => x.UserName.Contains(request.keyword)
+                    || x.FirstName.Contains(request.keyword)
+                    || x.LastName.Contains(request.keyword)
+                    || x.dateCreated == request.dateCreated
+                    || x.employeeId == request.employeeId
+                    || x.Email.Contains(request.keyword)
+                    || x.PhoneNumber.Contains(request.keyword)
+                    || x.LockoutEnabled == request.lockoutEnabled);
+            }
+            int totalRow = await query.CountAsync();
+            var data = await query.Skip((request.pageIndex - 1) * request.pageSize)
+                .Take(request.pageSize)
+                .Select(x => new UserVm()
+                {
+                    Id = x.Id,
+                    UserName = x.UserName,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Dob = x.Dob,
+                    employeeId = x.employeeId,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    dateCreated = x.dateCreated,
+                    LockoutEnd = x.LockoutEnd,
+                    LockoutEnabled = x.LockoutEnabled,
+
+                }).ToListAsync();
+            var pagedResult = new PageResult<UserVm>()
+            {
+                TotalRecords = totalRow,
+                pageIndex = request.pageIndex,
+                pageSize = request.pageSize,
+                Items = data
+            };
+            return new ApiSuccessResult<PageResult<UserVm>>(pagedResult);
+        }
+
+        public async Task<bool> Register(RegisterRequest request)
+        {
+            var user = await _userManager.FindByNameAsync(request.UserName);
             //if (user != null)
             //{
-            //    return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
+            //    return false;
+            //    //return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
             //}
             //if (await _userManager.FindByEmailAsync(request.Email) != null)
             //{
-            //    return new ApiErrorResult<bool>("Emai đã tồn tại");
+            //    return false;
+            //    //return new ApiErrorResult<bool>("Emai đã tồn tại");
             //}
 
-            //user = new AppUser()
-            //{
-            //    Dob = request.Dob,
-            //    Email = request.Email,
-            //    FirstName = request.FirstName,
-            //    LastName = request.LastName,
-            //    UserName = request.UserName,
-            //    PhoneNumber = request.PhoneNumber
-            //};
-            //var result = await _userManager.CreateAsync(user, request.Password);
-            //if (result.Succeeded)
-            //{
-            //    return new ApiSuccessResult<bool>();
-            //}
-            //return new ApiErrorResult<bool>("Đăng ký không thành công");
-            throw new NotImplementedException();
+            user = new AppUser()
+            {
+                Dob = request.Dob,
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                UserName = request.UserName,
+                PhoneNumber = request.PhoneNumber
+            };
+            var result = await _userManager.CreateAsync(user, request.Password);
+            if (result.Succeeded)
+            {
+                return true;
+            }
+            return false;
+
         }
 
         public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)

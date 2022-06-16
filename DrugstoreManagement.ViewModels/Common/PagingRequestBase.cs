@@ -8,7 +8,7 @@ namespace DrugstoreManagement.ViewModels.Common
 {
     public class PagingRequestBase
     {
-        public int pgaeIndex { get; set; }
+        public int pageIndex { get; set; }
         public int pageSize { get; set; }
     }
 }

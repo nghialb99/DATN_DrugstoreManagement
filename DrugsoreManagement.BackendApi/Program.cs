@@ -5,6 +5,7 @@ using DrugstoreManagement.Application.System.Roles;
 using DrugstoreManagement.Application.System.Users;
 using DrugstoreManagement.Data.EF;
 using DrugstoreManagement.Data.Entities;
+using DrugstoreManagement.ViewModels.System.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpClient();
 
 //builder.Services.AddDbContext<DrugstoreDbContext>(options =>
 //    options.UseSqlServer(ConfigurationExtensions.GetConnectionString(builder.Configuration, SystemConstants.MainConnectionString)));
@@ -33,7 +36,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<IRoleService, RoleService>();
 
 // Add services to the container.
-builder.Services.AddControllers().AddFluentValidation();
+builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
 
 // AddSwagger
 builder.Services.AddSwaggerGen(c =>

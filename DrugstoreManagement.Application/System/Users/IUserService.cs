@@ -12,11 +12,11 @@ namespace DrugstoreManagement.Application.System.Users
     {
         Task<string> Authencate(LoginRequest request);//ApiResult<string>
 
-        Task<ApiResult<bool>> Register(RegisterRequest request);
+        Task<bool> Register(RegisterRequest request);
 
         Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
 
-        //Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
+        Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
 
         //Task<ApiResult<UserVm>> GetById(Guid id);
 

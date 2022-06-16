@@ -13,13 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrugstoreManagement.ViewMod
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrugstoreManagement.WebApp", "DrugstoreManagement.WebApp\DrugstoreManagement.WebApp.csproj", "{7A5B0A12-49D9-4906-B0BB-0F0828C56855}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrugsoreManagement.BackendApi", "DrugsoreManagement.BackendApi\DrugsoreManagement.BackendApi.csproj", "{BCA2132B-EA7F-4259-9F40-2C20C41ACC7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DrugsoreManagement.BackendApi", "DrugsoreManagement.BackendApi\DrugsoreManagement.BackendApi.csproj", "{BCA2132B-EA7F-4259-9F40-2C20C41ACC7F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Infrastructure", "1. Infrastructure", "{8450A293-21FD-466C-8970-72E8DD10AABC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Domain", "2. Domain", "{A27CC416-F66A-4286-A8B9-30BBE3D01230}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Host", "3. Host", "{AA3188AF-9AF1-429C-BDAB-14AD4D6CCFB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrugstoreManagement.ApiIntegration", "DrugstoreManagement.ApiIntegration\DrugstoreManagement.ApiIntegration.csproj", "{6CCE0E2C-8475-4970-B6C5-2A41270F88EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{BCA2132B-EA7F-4259-9F40-2C20C41ACC7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BCA2132B-EA7F-4259-9F40-2C20C41ACC7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCA2132B-EA7F-4259-9F40-2C20C41ACC7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CCE0E2C-8475-4970-B6C5-2A41270F88EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CCE0E2C-8475-4970-B6C5-2A41270F88EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CCE0E2C-8475-4970-B6C5-2A41270F88EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CCE0E2C-8475-4970-B6C5-2A41270F88EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{E4CAA26B-B1CD-473D-9041-DE88367E3395} = {8450A293-21FD-466C-8970-72E8DD10AABC}
 		{7A5B0A12-49D9-4906-B0BB-0F0828C56855} = {AA3188AF-9AF1-429C-BDAB-14AD4D6CCFB6}
 		{BCA2132B-EA7F-4259-9F40-2C20C41ACC7F} = {AA3188AF-9AF1-429C-BDAB-14AD4D6CCFB6}
+		{6CCE0E2C-8475-4970-B6C5-2A41270F88EB} = {AA3188AF-9AF1-429C-BDAB-14AD4D6CCFB6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {404EB5FB-88C4-4D0D-B862-3E813275607B}

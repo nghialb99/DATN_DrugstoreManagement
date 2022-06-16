@@ -1,7 +1,37 @@
+using DrugstoreManagement.ApiIntegration;
+using DrugstoreManagement.ApiIntegration.Interface;
+using DrugstoreManagement.ViewModels.System.Users;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+{
+    options.LoginPath = "/Login/Index";
+    options.AccessDeniedPath = "/User/Forbidden/";
+});
+
+builder.Services.AddControllersWithViews().AddFluentValidation(
+    fv => fv.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+});
+
+//builder.Services.AddSingleton<IHttpClientFactory, IHttpClientFactory>();
+builder.Services.AddTransient<IUserApiClient, UserApiClient>();
+
+
+//if (builder.Environment.IsDevelopment())
+//{
+//    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+//}
+
 
 var app = builder.Build();
 
@@ -16,9 +46,13 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseAuthentication();
+
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
