@@ -11,7 +11,7 @@ namespace DrugstoreManagement.ApiIntegration.Interface
     public interface IUserApiClient
     {
         Task<string> Authenticate(LoginRequest request);
-        Task<ApiResult<PageResult<UserVm>>> GetUsersPagings(GetUserPagingRequest request);
+        Task<PageResult<UserVm>> GetUsersPagings(GetUserPagingRequest request);
         Task<bool> CreateAcount(RegisterRequest request);
     }
 }

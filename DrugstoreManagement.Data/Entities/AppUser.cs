@@ -14,13 +14,13 @@ namespace DrugstoreManagement.Data.Entities
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
-
+        [Column(TypeName = "date")]
         public DateTime Dob { get; set; }
 
         public int employeeId { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? dateCreated { get; set; }
+        public DateTime dateCreated { get; set; }
 
 
     }

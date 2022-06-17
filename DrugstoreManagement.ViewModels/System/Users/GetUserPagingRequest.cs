@@ -9,9 +9,7 @@ namespace DrugstoreManagement.ViewModels.System.Users
 {
     public class GetUserPagingRequest : PagingRequestBase
     {
-        public string keyword { get; set; }
-        public DateTime dateCreated { get; set; }
-        public int employeeId { get; set; }
+        public string? keyword { get; set; }
         public bool lockoutEnabled { get; set; }
     }
 }

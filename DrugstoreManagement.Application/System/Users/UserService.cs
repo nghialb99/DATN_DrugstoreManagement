@@ -59,16 +59,19 @@ namespace DrugstoreManagement.Application.System.Users
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
+        public async Task<PageResult<UserVm>> GetUsersPaging(GetUserPagingRequest request)
         {
             var query = _userManager.Users;
-            if (!string.IsNullOrEmpty(request.keyword))
+            if (string.IsNullOrEmpty(request.keyword))
+            {
+                query = query.Where(x => x.LockoutEnabled == request.lockoutEnabled);
+            }
+            else
             {
                 query = query.Where(x => x.UserName.Contains(request.keyword)
                     || x.FirstName.Contains(request.keyword)
                     || x.LastName.Contains(request.keyword)
-                    || x.dateCreated == request.dateCreated
-                    || x.employeeId == request.employeeId
+                    || x.employeeId.ToString().Contains(request.keyword)
                     || x.Email.Contains(request.keyword)
                     || x.PhoneNumber.Contains(request.keyword)
                     || x.LockoutEnabled == request.lockoutEnabled);
@@ -98,7 +101,7 @@ namespace DrugstoreManagement.Application.System.Users
                 pageSize = request.pageSize,
                 Items = data
             };
-            return new ApiSuccessResult<PageResult<UserVm>>(pagedResult);
+            return pagedResult;
         }
 
         public async Task<bool> Register(RegisterRequest request)

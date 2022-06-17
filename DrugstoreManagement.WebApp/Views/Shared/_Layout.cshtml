@@ -1,6 +1,10 @@
 ﻿@using System.Globalization
 @{
     var culture = CultureInfo.CurrentCulture.Name;
+    var value = ViewContext.RouteData.Values;
+    var actionName = value["action"].ToString();
+    var controllerName = value["controller"].ToString();
+    
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -9,29 +13,28 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard - NiceAdmin Bootstrap Template</title>
+  <title>Hệ thống quản lý nhà thuốc</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon">
-  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://localhost:5077/assets/img/logo.png" rel="icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="/assets/css/style.css" rel="stylesheet">
+  <link href="https://localhost:5077/assets/css/style.css" rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
@@ -48,7 +51,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a class="logo d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
-        <img src="/assets/img/logo.png" alt="logo">
+        <img src="https://localhost:5077/assets/img/logo.png" alt="logo">
         <span class="d-none d-lg-block" style="color: #198754">Quản lý nhà thuốc</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -163,7 +166,7 @@
 
             <!-- <li class="message-item"> -->
               <!-- <a href="#"> -->
-                <!-- <img src="/assets/img/messages-1.jpg" alt="" class="rounded-circle"> -->
+                <!-- <img src="https://localhost:5077/assets/img/messages-1.jpg" alt="" class="rounded-circle"> -->
                 <!-- <div> -->
                   <!-- <h4>Maria Hudson</h4> -->
                   <!-- <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p> -->
@@ -177,7 +180,7 @@
 
             <!-- <li class="message-item"> -->
               <!-- <a href="#"> -->
-                <!-- <img src="/assets/img/messages-2.jpg" alt="" class="rounded-circle"> -->
+                <!-- <img src="https://localhost:5077/assets/img/messages-2.jpg" alt="" class="rounded-circle"> -->
                 <!-- <div> -->
                   <!-- <h4>Anna Nelson</h4> -->
                   <!-- <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p> -->
@@ -191,7 +194,7 @@
 
             <!-- <li class="message-item"> -->
               <!-- <a href="#"> -->
-                <!-- <img src="/assets/img/messages-3.jpg" alt="" class="rounded-circle"> -->
+                <!-- <img src="https://localhost:5077/assets/img/messages-3.jpg" alt="" class="rounded-circle"> -->
                 <!-- <div> -->
                   <!-- <h4>David Muldon</h4> -->
                   <!-- <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p> -->
@@ -214,7 +217,7 @@
         <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="/assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+            <img src="https://localhost:5077/assets/img/profile-img.jpeg" alt="Profile" class="rounded-circle">
             <span class="d-none d-md-block dropdown-toggle ps-2">@User.Identity.Name</span>
           </a><!-- End Profile Iamge Icon -->
 
@@ -268,50 +271,51 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " asp-area="" asp-controller="Home" asp-action="Index">
-          <i class="bi"><img src="/assets/Resouse/icons8-system-task-100.png" width="40" height="40"/></i>
-          <span>Tổng quan</span>
+        <a class="nav-link @(controllerName == "Home" && actionName == "Index" ? "":"collapsed")" asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-system-task-100.png" width="40" height="40"/></i>
+            <span>Tổng quan</span>
         </a>
       </li><!-- End Overview Nav -->
 	  
 	  <li class="nav-item">
-        <a class="nav-link " asp-area="" asp-controller="Invoice" asp-action="CreateInvoice">
-          <i class="bi"><img src="/assets/Resouse/icons8-fast-cart-100.png" width="40" height="40"/></i>
-          <span>Bán hàng / Lập hóa đơn</span>
+        <a class="nav-link @(controllerName == "Invoice" && actionName == "CreateInvoice" ? "":"collapsed") " asp-area="" asp-controller="Invoice" asp-action="CreateInvoice">
+            <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-fast-cart-100.png" width="40" height="40"/></i>
+            <span>Bán hàng / Lập hóa đơn</span>
         </a>
+           
       </li><!-- End CreateInvoice Nav -->
 	  
 	  <li class="nav-item">
-        <a class="nav-link " asp-area="" asp-controller="Invoice" asp-action="ManageInvoice">
-          <i class="bi"><img src="/assets/Resouse/icons8-credit-control-100.png" width="40" height="40"/></i>
+        <a class="nav-link @(controllerName == "Invoice" && actionName == "ManageInvoice" ? "":"collapsed") " asp-area="" asp-controller="Invoice" asp-action="ManageInvoice">
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-credit-control-100.png" width="40" height="40"/></i>
           <span>Quản lý hóa đơn</span>
         </a>
       </li><!-- End InvoicesManagement Nav -->
 	  
 	  <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#inventory-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi"><img src="/assets/Resouse/icons8-warehouse-100.png" width="40" height="40"/></i>
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-warehouse-100.png" width="40" height="40"/></i>
 		  <span>Quản lý kho</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="inventory-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="forms-elements.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-favorite-cart-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-favorite-cart-100.png" width="35" height="35"/></i>
 			  <span>Nhập từ nhà cung cấp</span>
             </a>
           </li>
           <li>
             <a href="forms-layouts.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-in-inventory-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-in-inventory-100.png" width="35" height="35"/></i>
 			  <span>Sản phẩm tồn kho</span>
             </a>
           </li>
           <li>
             <a href="forms-editors.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-new-product-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-new-product-100.png" width="35" height="35"/></i>
 			  <span>Nhập tồn</span>
             </a>
           </li>
@@ -321,35 +325,35 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#catagory-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi"><img src="/assets/Resouse/icons8-menu-100.png" width="40" height="40"/></i>
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-menu-100.png" width="40" height="40"/></i>
 		  <span>Danh mục</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="catagory-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="forms-elements.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-product-documents-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-product-documents-100.png" width="35" height="35"/></i>
 			  <span>Nhóm sản phẩm</span>
             </a>
           </li>
           <li>
             <a href="forms-layouts.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-team-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-team-100.png" width="35" height="35"/></i>
 			  <span>Nhóm nhà cung cấp</span>
             </a>
           </li>
           <li>
             <a href="forms-editors.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-supplier-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-supplier-100.png" width="35" height="35"/></i>
 			  <span>Nhà cung cấp</span>
             </a>
           </li>
           <li>
             <a href="forms-validation.html">
              <i class="bi">
-			  <img src="/assets/Resouse/icons8-customer-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-customer-100.png" width="35" height="35"/></i>
 			  <span>Khách hàng</span>
             </a>
           </li>
@@ -357,29 +361,29 @@
       </li><!-- End Catagory Nav -->
 	  
 	  <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi"><img src="/assets/Resouse/icons8-microsoft-sharepoint-100.png" width="40" height="40"/></i>
+        <a class="nav-link @(controllerName == "EnterpriseInfo" && actionName == "Index" ? "":"collapsed") " href="index.html">
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-microsoft-sharepoint-100.png" width="40" height="40"/></i>
           <span>Thông tin cửa hàng</span>
         </a>
       </li><!-- End EnterpriseInfo Nav -->
 	  
 	  <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#user-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi"><img src="/assets/Resouse/icons8-myspace-100.png" width="40" height="40"/></i>
+        <a class="nav-link @(controllerName == "User" && actionName == "Index" ? "":"collapsed")" data-bs-target="#user-nav" data-bs-toggle="collapse" aria-expanded="@(controllerName == "User" && actionName == "Index" ? "true":"false")" href="#">
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-myspace-100.png" width="40" height="40"/></i>
 		  <span>Quản lý người dùng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="user-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="user-nav" class="nav-content collapse @(controllerName == "User" && actionName == "Index" ? "show":"")" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a class="@(controllerName == "User" && actionName == "UserRole" ? "":"nav-item")" href="">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-user-groups-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-user-groups-100.png" width="35" height="35"/></i>
 			  <span>Nhóm người dùng</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a class="@(controllerName == "User" && actionName == "Index" ? "nav-link":"")" asp-controller="User" asp-action="Index">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-user-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-user-100.png" width="35" height="35"/></i>
 			  <span>Người dùng</span>
             </a>
           </li>
@@ -389,28 +393,28 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#report-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi"><img src="/assets/Resouse/icons8-graph-report-100.png" width="40" height="40"/></i>
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-graph-report-100.png" width="40" height="40"/></i>
 		  <span>Báo cáo</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="report-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="forms-elements.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-bill-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-bill-100.png" width="35" height="35"/></i>
 			  <span>Bán hàng</span>
             </a>
           </li>
           <li>
             <a href="forms-layouts.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-buy-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-buy-100.png" width="35" height="35"/></i>
 			  <span>Nhập hàng</span>
             </a>
           </li>
           <li>
             <a href="forms-editors.html">
               <i class="bi">
-			  <img src="/assets/Resouse/icons8-warehouse-100.png" width="35" height="35"/></i>
+			  <img src="https://localhost:5077/assets/Resouse/icons8-warehouse-100.png" width="35" height="35"/></i>
 			  <span>Nhập tồn</span>
             </a>
           </li>
@@ -421,7 +425,7 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="index.html">
-          <i class="bi"><img src="/assets/Resouse/icons8-settings-100.png" width="40" height="40"/></i>
+          <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-settings-100.png" width="40" height="40"/></i>
           <span>Thiết lập</span>
         </a>
       </li><!-- End Profile Page Nav -->
@@ -455,17 +459,17 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="/assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/chart.js/chart.min.js"></script>
-  <script src="/assets/vendor/echarts/echarts.min.js"></script>
-  <script src="/assets/vendor/quill/quill.min.js"></script>
-  <script src="/assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="/assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <script src="https://localhost:5077/assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="https://localhost:5077/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://localhost:5077/assets/vendor/chart.js/chart.min.js"></script>
+  <script src="https://localhost:5077/assets/vendor/echarts/echarts.min.js"></script>
+  <script src="https://localhost:5077/assets/vendor/quill/quill.min.js"></script>
+  <script src="https://localhost:5077/assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="https://localhost:5077/assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="https://localhost:5077/assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="/assets/js/main.js"></script>
+  <script src="https://localhost:5077/assets/js/main.js"></script>
 
 </body>
 

@@ -13,9 +13,22 @@ namespace DrugstoreManagement.WebApp.Controllers
         {
             _userApiClient = userApiClient;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(string keyword = " ", bool lockoutEnabled = true,
+            int pageIndex = 1, int pageSize = 10)
         {
-            return View();
+            var request = new GetUserPagingRequest()
+            {
+                keyword = keyword,
+                lockoutEnabled = lockoutEnabled,
+                pageIndex = pageIndex,
+                pageSize = pageSize,
+                BearerToken = HttpContext.Session.GetString("Token"),
+        };
+            var data = await _userApiClient.GetUsersPagings(request);
+            ViewBag.Keyword = keyword;
+
+
+            return View(data);
         }
         [HttpGet]
         public IActionResult Create()

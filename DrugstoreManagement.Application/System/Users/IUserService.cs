@@ -16,7 +16,7 @@ namespace DrugstoreManagement.Application.System.Users
 
         Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
 
-        Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
+        Task<PageResult<UserVm>> GetUsersPaging(GetUserPagingRequest request);
 
         //Task<ApiResult<UserVm>> GetById(Guid id);
 

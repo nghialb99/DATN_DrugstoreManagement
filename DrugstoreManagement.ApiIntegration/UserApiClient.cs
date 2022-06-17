@@ -50,17 +50,18 @@ namespace DrugstoreManagement.ApiIntegration
             return response.IsSuccessStatusCode;
         }
 
-        public async Task<ApiResult<PageResult<UserVm>>> GetUsersPagings(GetUserPagingRequest request)
+        public async Task<PageResult<UserVm>> GetUsersPagings(GetUserPagingRequest request)
         {
             var client = _httpClientFactory.CreateClient();
-            var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
+            //var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sessions);
-            var response = await client.GetAsync($"/api/users/paging?pageIndex=" +
-                $"{request.pageIndex}&pageSize={request.pageSize}&keyword={request.keyword}");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
+            var response = await client.GetAsync($"/api/Users/paging?pageIndex=" +
+                $"{request.pageIndex}&pageSize={request.pageSize}&lockoutEnabled={request.lockoutEnabled}" +
+                $"&keyword={request.keyword}");
             var body = await response.Content.ReadAsStringAsync();
-            var users = JsonConvert.DeserializeObject<ApiSuccessResult<PageResult<UserVm>>>(body);
+            var users = JsonConvert.DeserializeObject<PageResult<UserVm>>(body);
             return users;
         }
     }
