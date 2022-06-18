@@ -24,9 +24,9 @@ namespace DrugsoreManagement.BackendApi.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             var resultToken = await _userService.Authencate(request);
-            if (string.IsNullOrEmpty(resultToken.ToString()))
+            if (string.IsNullOrEmpty(resultToken.ResultObj))
             {
-                return BadRequest(resultToken);
+                return BadRequest("Thông tin đăng nhập không đúng");
             }
             return Ok(resultToken);
         }
@@ -37,13 +37,34 @@ namespace DrugsoreManagement.BackendApi.Controllers
                 return BadRequest(ModelState);
 
             var result = await _userService.Register(request);
-            if (!result)
+            if (!result.IsSuccessed)
             {
-                return BadRequest("Thất bại");
+                return BadRequest(result.Message);
             }
-            return Ok("Thành công");
+            return Ok();
         }
 
+        //PUT: https://localhost/api/users/id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Lock([FromBody] Guid id)
+        {
+            return Ok();
+        }
+
+        //PUT: https://localhost/api/users/id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.Update(id, request);
+            if (!result.IsSuccessed)
+            {
+                return BadRequest(result.Message);
+            }
+            return Ok();
+        }
         //http://localhost/api/users/paging?pageIndex=1&pageSize=10&keyword=
         [HttpGet("paging")]
         public async Task<IActionResult> GetAllPaging([FromQuery] GetUserPagingRequest request)

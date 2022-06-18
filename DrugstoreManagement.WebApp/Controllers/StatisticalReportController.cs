@@ -2,7 +2,7 @@
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class StatisticalReportController : Controller
+    public class StatisticalReportController : BaseController
     {
         public IActionResult SalesReport()
         {

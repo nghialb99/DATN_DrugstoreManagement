@@ -6,7 +6,7 @@ using System.Diagnostics;
 namespace DrugstoreManagement.WebApp.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 

@@ -2,7 +2,7 @@
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class EnterpriseInfoController : Controller
+    public class EnterpriseInfoController : BaseController
     {
         public IActionResult Index()
         {

@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Catalog\Invoices\" />
     <Folder Include="Catalog\ImportBills\" />
     <Folder Include="Catalog\ImportInventoryBills\" />
     <Folder Include="Catalog\UnitPrices\" />

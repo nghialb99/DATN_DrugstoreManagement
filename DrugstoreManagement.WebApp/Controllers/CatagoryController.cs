@@ -2,7 +2,7 @@
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class CatagoryController : Controller
+    public class CatagoryController : BaseController
     {
         public IActionResult Index()
         {

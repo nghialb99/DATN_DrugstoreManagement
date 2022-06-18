@@ -2,7 +2,7 @@
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class ManageUserRoleController : Controller
+    public class ManageUserRoleController : BaseController
     {
         public IActionResult Index()
         {

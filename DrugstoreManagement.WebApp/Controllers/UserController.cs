@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
         public UserController(IUserApiClient userApiClient)

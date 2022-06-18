@@ -11,7 +11,7 @@ using System.Text;
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
         private readonly IConfiguration _configuration;

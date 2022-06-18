@@ -2,7 +2,7 @@
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class InvoiceController : Controller
+    public class InvoiceController : BaseController
     {
         private readonly ILogger<InvoiceController> _logger;
 

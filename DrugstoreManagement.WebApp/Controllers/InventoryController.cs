@@ -2,7 +2,7 @@
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    public class InventoryController : Controller
+    public class InventoryController : BaseController
     {
         public IActionResult Index()
         {

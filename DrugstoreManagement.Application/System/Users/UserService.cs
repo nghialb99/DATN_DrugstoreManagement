@@ -30,15 +30,15 @@ namespace DrugstoreManagement.Application.System.Users
             _roleManager = roleManager;
             _config = config;
         }
-        public async Task<string> Authencate(LoginRequest request) //Task<ApiResult<string>>
+        public async Task<ApiResult<string>> Authencate(LoginRequest request) //Task<ApiResult<string>>
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) throw new DrugstoreException("Tài khoản không tồn tại");
+            if (user == null) return new ApiErrorResult<string>("Tài khoản không tồn tại");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
             {
-                throw new DrugstoreException("Thông tin đăng nhập không đúng");
+                return new ApiErrorResult<string>("Thông tin đăng nhập không đúng");
             }
             var roles = await _userManager.GetRolesAsync(user);
             var claims = new[]
@@ -56,10 +56,10 @@ namespace DrugstoreManagement.Application.System.Users
                 claims,
                 expires: DateTime.Now.AddHours(3),
                 signingCredentials: creds);
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        public async Task<PageResult<UserVm>> GetUsersPaging(GetUserPagingRequest request)
+        public async Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
         {
             var query = _userManager.Users;
             if (string.IsNullOrEmpty(request.keyword))
@@ -101,22 +101,20 @@ namespace DrugstoreManagement.Application.System.Users
                 pageSize = request.pageSize,
                 Items = data
             };
-            return pagedResult;
+            return new ApiSuccessResult<PageResult<UserVm>>(pagedResult);
         }
 
-        public async Task<bool> Register(RegisterRequest request)
+        public async Task<ApiResult<bool>> Register(RegisterRequest request)
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            //if (user != null)
-            //{
-            //    return false;
-            //    //return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
-            //}
-            //if (await _userManager.FindByEmailAsync(request.Email) != null)
-            //{
-            //    return false;
-            //    //return new ApiErrorResult<bool>("Emai đã tồn tại");
-            //}
+            if (user != null)
+            {
+                return new ApiErrorResult<bool>("Tài khoản đã tồn tại");
+            }
+            if (await _userManager.FindByEmailAsync(request.Email) != null)
+            {
+                return new ApiErrorResult<bool>("emai đã tồn tại");
+            }
 
             user = new AppUser()
             {
@@ -130,15 +128,32 @@ namespace DrugstoreManagement.Application.System.Users
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
             {
-                return true;
+                return new ApiSuccessResult<bool>(true);
             }
-            return false;
+            return new ApiErrorResult<bool>("Thêm mới không thành công");
 
         }
 
         public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
         {
-            throw new NotImplementedException();
+            if (await _userManager.Users.AnyAsync(x => x.Id != id && x.Email == request.Email))
+            {
+                return new ApiErrorResult<bool>("Email đã được đăng kí cho tài khoản khác");
+            }
+            var user = await _userManager.FindByIdAsync(id.ToString());
+
+            user.Dob = request.Dob;
+            user.Email = request.Email;
+            user.FirstName = request.FirstName;
+            user.LastName = request.LastName;
+            user.PhoneNumber = request.PhoneNumber;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>(true);
+            }
+            return new ApiErrorResult<bool>("Cập nhật không thành công");
         }
     }
 }
