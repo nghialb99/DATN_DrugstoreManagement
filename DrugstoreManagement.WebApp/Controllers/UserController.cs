@@ -14,7 +14,7 @@ namespace DrugstoreManagement.WebApp.Controllers
             _userApiClient = userApiClient;
         }
         public async Task<IActionResult> Index(string keyword = " ", bool lockoutEnabled = true,
-            int pageIndex = 1, int pageSize = 10)
+            int pageIndex = 1, int pageSize = 20)
         {
             var request = new GetUserPagingRequest()
             {
@@ -39,10 +39,11 @@ namespace DrugstoreManagement.WebApp.Controllers
         public async Task<IActionResult> Create(RegisterRequest request)
         {
             if (!ModelState.IsValid) return View();
+            request.BearerToken = HttpContext.Session.GetString("Token");
             var result = await _userApiClient.CreateAcount(request);
             if(result) return RedirectToAction("Index");
 
-            return View(result);
+            return View(request);
         }
     }
 }

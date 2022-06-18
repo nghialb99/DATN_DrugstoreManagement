@@ -19,53 +19,62 @@
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
+             <div class="card-2">
+            <div class="card-body-2" > 
+              <h5 class="card-title">Danh sách người dùng</h5>
+              <div class="nav-item" style="padding-bottom: 5px">
+                  <a class="btn-ct" asp-area="" asp-controller="User" asp-action="Create">
+                    <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-add-100.png" width="35" height="35"/></i>
+                    <span>Thêm mới</span>
+                  </a>
+              </div>
+            </div>
+          </div>
 
           <div class="card">
             <div class="card-body" style="overflow-x:auto"> 
-              <h5 class="card-title">Danh sách người dùng</h5>
-              
-              <p><a asp-action="Create">Thêm mới</a></p>
               <!-- Table with stripped rows -->
               <table class="table datatable table-hover">
                 <thead>
                     <tr>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Tên đăng nhập
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Họ
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Tên
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Ngày sinh
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Mã nhân viên
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Ngày tạo
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Email
                         </th>
-                        <th style="width:5000px">
+                        <th scope="col">
                             Số điện thoại
                         </th>
-                        <th style="width:5000px">
+                        @*<th scope="col">
                             Ngày cuối đăng nhập
-                        </th>
-                        <th style="width:5000px">
+                        </th>*@
+                        <th scope="col">
                             Trạng thái
                         </th>
-                        <th></th>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Items) {
                     <tr>
-                        <td>
+                        <td scope="row">
                             @Html.DisplayFor(modelItem => item.UserName)
                         </td>
                         <td>
@@ -91,17 +100,20 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PhoneNumber)
                         </td>
-                        <td>
+                        @*<td>
                             @{DateTimeOffset? _LockoutEnd = item.LockoutEnd;}
                             @Html.DisplayFor(modelItem => _LockoutEnd)
-                        </td>
+                        </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.LockoutEnabled)
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Chi tiết", "Details", new { /* id=item.PrimaryKey */ })
+                           
+                        </td>
+                        <td>
+                            @Html.ActionLink("Sửa", "Edit", new { /* id=item.PrimaryKey */ }) | 
+                            @Html.ActionLink("Khóa", "Lock", new { /* id=item.PrimaryKey */ })
                         </td>
                     </tr>
                     }

@@ -45,6 +45,7 @@ namespace DrugstoreManagement.ApiIntegration
             var client = _httpClientFactory.CreateClient();
 
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
             var response = await client.PostAsync("/api/users/createAcount", httpContent);
 
             return response.IsSuccessStatusCode;

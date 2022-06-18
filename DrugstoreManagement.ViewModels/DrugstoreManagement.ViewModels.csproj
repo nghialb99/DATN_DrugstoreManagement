@@ -11,4 +11,19 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Catalog\Invoices\" />
+    <Folder Include="Catalog\ImportBills\" />
+    <Folder Include="Catalog\ImportInventoryBills\" />
+    <Folder Include="Catalog\UnitPrices\" />
+    <Folder Include="Catalog\UnitNames\" />
+    <Folder Include="Catalog\Prescriptions\" />
+    <Folder Include="Catalog\SipplierRoles\" />
+    <Folder Include="Catalog\ProductCategorys\" />
+    <Folder Include="Catalog\Custormers\" />
+    <Folder Include="Catalog\Employees\" />
+    <Folder Include="Catalog\Suppliers\" />
+    <Folder Include="System\Roles\" />
+  </ItemGroup>
+
 </Project>

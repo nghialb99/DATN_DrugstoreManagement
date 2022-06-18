@@ -41,6 +41,7 @@ namespace DrugstoreManagement.WebApp.Controllers
                 HttpContext.Session.Remove("Token");
                 return View();
             }
+            HttpContext.Session.SetString("Token", token);
             var userPrincipal = this.ValidateToken(token);
             var authenProperties = new AuthenticationProperties
             {
