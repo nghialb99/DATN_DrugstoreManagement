@@ -44,12 +44,12 @@ namespace DrugsoreManagement.BackendApi.Controllers
             return Ok();
         }
 
-        //PUT: https://localhost/api/users/id
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Lock([FromBody] Guid id)
-        {
-            return Ok();
-        }
+        ////PUT: https://localhost/api/users/id
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> Lock([FromBody] Guid id)
+        //{
+        //    return Ok();
+        //}
 
         //PUT: https://localhost/api/users/id
         [HttpPut("{id}")]
