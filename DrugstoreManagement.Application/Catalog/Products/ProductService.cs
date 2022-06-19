@@ -62,7 +62,7 @@ namespace DrugstoreManagement.Application.Catalog.Products
                 ).ToListAsync();
             return data;
         }
-        public async Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
+        public async Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request)
         {
             throw new NotImplementedException();
         }

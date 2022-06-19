@@ -17,7 +17,7 @@ namespace DrugstoreManagement.Application.Catalog.Products
         Task<int> Delete(int id);
         Task<List<ProductViewModel>> GetAll();
 
-        Task<PageResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
+        Task<PagedResult<ProductViewModel>> GetAllPaging(GetProductPagingRequest request);
         Task<int> AddImage(int productId, IFormFile file);
     }
 }

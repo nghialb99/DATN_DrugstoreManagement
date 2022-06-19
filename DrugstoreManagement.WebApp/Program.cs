@@ -25,7 +25,7 @@ builder.Services.AddSession(options =>
 
 //builder.Services.AddSingleton<IHttpClientFactory, IHttpClientFactory>();
 builder.Services.AddTransient<IUserApiClient, UserApiClient>();
-
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 //if (builder.Environment.IsDevelopment())
 //{

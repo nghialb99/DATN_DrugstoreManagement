@@ -15,7 +15,7 @@
         <meta name="author" content="" />
 		<link rel= "icon" href="/assets/img/logo.png" title="image/x-icon" /> 
         <title>Đăng nhập - Quản lý nhà thuốc</title>
-        <link href="/assets/css/stylesLg.css" rel="stylesheet" />
+        <link href="https://localhost:5077/assets/css/stylesLg.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="bg-primary" style="background-image: url('/assets/img/login-bg.jpg');">
@@ -31,17 +31,20 @@
 										<h1 class="title-drugstore-management" >Quản lý nhà thuốc</h1>
 									</p>
 								</div>
-                                <div class="card shadow-lg border-0 rounded-lg mt-5" style="background-color: transparent; background-image: url('/assets/img/Alpha.png');">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5" style="background-color: transparent; background-image: url('https://localhost:5077/assets/img/Alpha.png');">
                                     <!-- <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div> -->
                                     <div class="card-body">
                                         <form asp-action="Index" asp-controller="Login" method="post">
+                                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" autofocus="autofocus" asp-for="UserName" type="text" placeholder="Username" />
                                                 <label @*for="inputEmail"*@>Tài khoản </label>
+                                                <span asp-validation-for="UserName" class="text-danger"></span>
                                             </div>
                                             <div class="form-floating mb-3">
                                                 <input class="form-control" asp-for="Password" type="password" placeholder="Password" />
                                                 <label @*for="inputPassword"*@>Mật khẩu</label>
+                                                <span asp-validation-for="Password" class="text-danger"></span>
                                             </div>
                                             <div class="form-check mb-3">
                                                 <input class="form-check-input" asp-for="RememberMe" type="checkbox" value="" />

@@ -19,7 +19,7 @@ namespace DrugstoreManagement.Data.EF
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            string connectionString = configuration.GetConnectionString("DrugstoreManagementDb");
+            string connectionString = configuration.GetConnectionString("DrugstoreMntDb");
 
             var optionsBuilder = new DbContextOptionsBuilder<DrugstoreDbContext>();
             optionsBuilder.UseSqlServer(connectionString);

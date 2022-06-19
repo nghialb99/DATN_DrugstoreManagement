@@ -1,4 +1,5 @@
 ﻿using DrugstoreManagement.Application.System.Users;
+using DrugstoreManagement.ViewModels.Common;
 using DrugstoreManagement.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,13 +25,10 @@ namespace DrugsoreManagement.BackendApi.Controllers
             if(!ModelState.IsValid)
                 return BadRequest(ModelState);
             var resultToken = await _userService.Authencate(request);
-            if (string.IsNullOrEmpty(resultToken.ResultObj))
-            {
-                return BadRequest("Thông tin đăng nhập không đúng");
-            }
             return Ok(resultToken);
         }
         [HttpPost("createAcount")]
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             if (!ModelState.IsValid)
@@ -53,17 +51,14 @@ namespace DrugsoreManagement.BackendApi.Controllers
 
         //PUT: https://localhost/api/users/id
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UserUpdateRequest request)
+        public async Task<IActionResult> Update([FromBody] UserUpdateRequest request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await _userService.Update(id, request);
-            if (!result.IsSuccessed)
-            {
-                return BadRequest(result.Message);
-            }
-            return Ok();
+            var result = await _userService.Update(request);
+            
+            return Ok(result);
         }
         //http://localhost/api/users/paging?pageIndex=1&pageSize=10&keyword=
         [HttpGet("paging")]
@@ -73,11 +68,11 @@ namespace DrugsoreManagement.BackendApi.Controllers
             return Ok(users);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetById(Guid id)
-        //{
-        //    var user = await _userService.GetById(id);
-        //    return Ok(user);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Getbyid(Guid id)
+        {
+            var user = await _userService.GetUserById(id);
+            return Ok(user);
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace DrugstoreManagement.Data.EF
     {
         public DrugstoreDbContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,24 +27,11 @@ namespace DrugstoreManagement.Data.EF
             modelBuilder.Entity<IdentityUserToken<Guid>>().ToTable("AppUserTokens").HasKey(x => x.UserId);
 
 
-            modelBuilder.Entity<Account>()
-                .Property(e => e.currentLoginDevice)
-                .IsUnicode(false);
-
             modelBuilder.Entity<AppConfig>()
                 .HasKey(x => x.Key);
             modelBuilder.Entity<AppConfig>()
                 .Property(x => x.Value).IsRequired(true);
 
-            modelBuilder.Entity<ImportBill>()
-                .HasOne(e => e.Account)
-                .WithMany(e => e.ImportBills)
-                .HasForeignKey(e => e.creator);
-
-            modelBuilder.Entity<ImportInventoryBill>()
-                .HasOne(e => e.Account)
-                .WithMany(e => e.ImportInventoryBills)
-                .HasForeignKey(e => e.creator);
 
             modelBuilder.Entity<EnterpriseInformation>()
                 .Property(e => e.metaTitle)
@@ -131,12 +120,19 @@ namespace DrugstoreManagement.Data.EF
                 .Property(e => e.price)
                 .HasPrecision(18, 0);
 
-            
+            modelBuilder.Entity<Invoice>()
+                .Property(e => e.TotalAmount)
+                .HasPrecision(18, 0);
+            modelBuilder.Entity<Invoice>()
+                .Property(e => e.TotalAmountAfterDiscount)
+                .HasPrecision(18, 0);
+            modelBuilder.Entity<Invoice>()
+                .Property(e => e.DiscountAmount)
+                .HasPrecision(18, 0);
         }
         public virtual DbSet<AppConfig> AppConfigs { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<AppRole> AppRoles { get; set; }
-        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<EnterpriseInformation> EnterpriseInformations { get; set; }

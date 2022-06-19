@@ -17,7 +17,7 @@
     <Folder Include="Catalog\UnitPrices\" />
     <Folder Include="Catalog\UnitNames\" />
     <Folder Include="Catalog\Prescriptions\" />
-    <Folder Include="Catalog\SipplierRoles\" />
+    <Folder Include="Catalog\SupplierRoles\" />
     <Folder Include="Catalog\ProductCategorys\" />
     <Folder Include="Catalog\Custormers\" />
     <Folder Include="Catalog\Employees\" />

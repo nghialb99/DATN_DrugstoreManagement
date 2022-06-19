@@ -8,12 +8,6 @@ namespace DrugstoreManagement.Data.Entities
     [Table("Employees")]
     public partial class Employee
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Employee()
-        {
-            Accounts = new HashSet<Account>();
-        }
-
         public int id { get; set; }
 
         [StringLength(50)]
@@ -41,8 +35,5 @@ namespace DrugstoreManagement.Data.Entities
         public string address { get; set; }
 
         public bool? status { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿@using System.Globalization
+
 @{
     var culture = CultureInfo.CurrentCulture.Name;
     var value = ViewContext.RouteData.Values;
+
     var actionName = value["action"].ToString();
     var controllerName = value["controller"].ToString();
-    
+
 }
 <!DOCTYPE html>
 <html lang="en">

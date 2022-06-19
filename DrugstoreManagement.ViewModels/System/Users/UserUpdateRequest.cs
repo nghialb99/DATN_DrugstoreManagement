@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DrugstoreManagement.ViewModels.Common;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Threading.Tasks;
 
 namespace DrugstoreManagement.ViewModels.System.Users
 {
-    public class UserUpdateRequest
+    public class UserUpdateRequest : RequestBase
     {
+        public Guid Id { get; set; }
+
         [Display(Name = "Họ")]
         public string? LastName { get; set; }
 

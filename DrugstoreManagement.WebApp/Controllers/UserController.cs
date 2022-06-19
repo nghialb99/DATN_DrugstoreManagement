@@ -1,4 +1,5 @@
 ﻿using DrugstoreManagement.ApiIntegration.Interface;
+using DrugstoreManagement.Utilities;
 using DrugstoreManagement.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -28,8 +29,21 @@ namespace DrugstoreManagement.WebApp.Controllers
             ViewBag.Keyword = keyword;
 
 
-            return View(data);
+            return View(data.ResultObj);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var token = HttpContext.Session.GetString("Token");
+            GuardAgainst.Null<string>(token);
+
+            var result = await _userApiClient.GetUserById(id, token);
+            if (result.IsSuccessed) return RedirectToAction("Index");
+
+            return View(result.ResultObj);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {
@@ -41,9 +55,26 @@ namespace DrugstoreManagement.WebApp.Controllers
             if (!ModelState.IsValid) return View();
             request.BearerToken = HttpContext.Session.GetString("Token");
             var result = await _userApiClient.CreateAcount(request);
-            if(result) return RedirectToAction("Index");
+            if(result.IsSuccessed) return RedirectToAction("Index");
 
             return View(request);
+        }
+
+        [HttpGet]
+        public IActionResult UpdateUser()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateUser(UserUpdateRequest request)
+        {
+            if (!ModelState.IsValid) return View();
+            var token = HttpContext.Session.GetString("Token");
+            GuardAgainst.Null<string>(token);
+            var result = await _userApiClient.UpdateUser(request);
+            if (result.IsSuccessed) return RedirectToAction("Index");
+
+            return View(result);
         }
     }
 }

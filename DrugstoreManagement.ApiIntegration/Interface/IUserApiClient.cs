@@ -10,8 +10,10 @@ namespace DrugstoreManagement.ApiIntegration.Interface
 {
     public interface IUserApiClient
     {
-        Task<string> Authenticate(LoginRequest request);
-        Task<PageResult<UserVm>> GetUsersPagings(GetUserPagingRequest request);
-        Task<bool> CreateAcount(RegisterRequest request);
+        Task<ApiResult<string>> Authenticate(LoginRequest request);
+        Task<ApiResult<PagedResult<UserVm>>> GetUsersPagings(GetUserPagingRequest request);
+        Task<ApiResult<UserVm>> GetUserById(Guid id, string token);
+        Task<ApiResult<bool>> CreateAcount(RegisterRequest request);
+        Task<ApiResult<bool>> UpdateUser(UserUpdateRequest request);
     }
 }

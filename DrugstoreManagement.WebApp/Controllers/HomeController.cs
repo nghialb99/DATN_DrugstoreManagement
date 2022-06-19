@@ -5,7 +5,6 @@ using System.Diagnostics;
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
-    [Authorize]
     public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,8 +16,8 @@ namespace DrugstoreManagement.WebApp.Controllers
 
         public IActionResult Index()
         {
-            var user = User.Identity.Name;
-            return View();
+            //var user = User;
+            return View(User);
         }
 
         public IActionResult Privacy()

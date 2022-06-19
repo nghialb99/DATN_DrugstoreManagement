@@ -14,11 +14,11 @@ namespace DrugstoreManagement.Application.System.Users
 
         Task<ApiResult<bool>> Register(RegisterRequest request);
 
-        Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request);
+        Task<ApiResult<bool>> Update(UserUpdateRequest request);
 
-        Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
+        Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request);
 
-        //Task<ApiResult<UserVm>> GetById(Guid id);
+        Task<ApiResult<UserVm>> GetUserById(Guid id);
 
         //Task<ApiResult<bool>> Delete(Guid id);
 

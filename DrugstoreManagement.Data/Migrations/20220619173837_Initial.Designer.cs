@@ -12,67 +12,17 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrugstoreManagement.Data.Migrations
 {
     [DbContext(typeof(DrugstoreDbContext))]
-    [Migration("20220609084144_Asp.NETCoreIdentityDb")]
-    partial class AspNETCoreIdentityDb
+    [Migration("20220619173837_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.5")
+                .HasAnnotation("ProductVersion", "6.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("DrugstoreManagement.Data.Entities.Account", b =>
-                {
-                    b.Property<string>("username")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("currentLoginDevice")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(50)");
-
-                    b.Property<DateTime?>("dateCreated")
-                        .HasColumnType("date");
-
-                    b.Property<int?>("employeeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("historyLogin")
-                        .IsRequired()
-                        .HasColumnType("xml");
-
-                    b.Property<string>("note")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<int?>("numberOfLogin")
-                        .HasColumnType("int");
-
-                    b.Property<string>("password")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int?>("userRoleid")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("veriCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("username");
-
-                    b.HasIndex("employeeId");
-
-                    b.HasIndex("userRoleid");
-
-                    b.ToTable("Accounts");
-                });
 
             modelBuilder.Entity("DrugstoreManagement.Data.Entities.AppConfig", b =>
                 {
@@ -123,9 +73,6 @@ namespace DrugstoreManagement.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Dob")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -170,7 +117,7 @@ namespace DrugstoreManagement.Data.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("dateCreated")
+                    b.Property<DateTime>("dateCreated")
                         .HasColumnType("date");
 
                     b.Property<int>("employeeId")
@@ -377,8 +324,6 @@ namespace DrugstoreManagement.Data.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("creator");
-
                     b.HasIndex("supplierId");
 
                     b.ToTable("ImportBills");
@@ -446,8 +391,6 @@ namespace DrugstoreManagement.Data.Migrations
 
                     b.HasKey("id");
 
-                    b.HasIndex("creator");
-
                     b.ToTable("ImportInventoryBills");
                 });
 
@@ -491,12 +434,22 @@ namespace DrugstoreManagement.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
+                    b.Property<decimal?>("DiscountAmount")
+                        .HasPrecision(18)
+                        .HasColumnType("decimal(18,0)");
+
+                    b.Property<decimal?>("TotalAmount")
+                        .HasPrecision(18)
+                        .HasColumnType("decimal(18,0)");
+
+                    b.Property<decimal?>("TotalAmountAfterDiscount")
+                        .HasPrecision(18)
+                        .HasColumnType("decimal(18,0)");
+
                     b.Property<string>("invoiceInfo")
-                        .IsRequired()
                         .HasColumnType("xml");
 
                     b.Property<string>("reasonDelete")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
@@ -1006,36 +959,13 @@ namespace DrugstoreManagement.Data.Migrations
                     b.ToTable("AppUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DrugstoreManagement.Data.Entities.Account", b =>
-                {
-                    b.HasOne("DrugstoreManagement.Data.Entities.Employee", "Employee")
-                        .WithMany("Accounts")
-                        .HasForeignKey("employeeId");
-
-                    b.HasOne("DrugstoreManagement.Data.Entities.UserRole", "UserRole")
-                        .WithMany("Accounts")
-                        .HasForeignKey("userRoleid");
-
-                    b.Navigation("Employee");
-
-                    b.Navigation("UserRole");
-                });
-
             modelBuilder.Entity("DrugstoreManagement.Data.Entities.ImportBill", b =>
                 {
-                    b.HasOne("DrugstoreManagement.Data.Entities.Account", "Account")
-                        .WithMany("ImportBills")
-                        .HasForeignKey("creator")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DrugstoreManagement.Data.Entities.Supplier", "Supplier")
                         .WithMany("ImportBills")
                         .HasForeignKey("supplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Account");
 
                     b.Navigation("Supplier");
                 });
@@ -1057,17 +987,6 @@ namespace DrugstoreManagement.Data.Migrations
                     b.Navigation("ImportBill");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("DrugstoreManagement.Data.Entities.ImportInventoryBill", b =>
-                {
-                    b.HasOne("DrugstoreManagement.Data.Entities.Account", "Account")
-                        .WithMany("ImportInventoryBills")
-                        .HasForeignKey("creator")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("DrugstoreManagement.Data.Entities.ImportInventoryBillDetail", b =>
@@ -1149,18 +1068,6 @@ namespace DrugstoreManagement.Data.Migrations
                     b.Navigation("UnitName");
                 });
 
-            modelBuilder.Entity("DrugstoreManagement.Data.Entities.Account", b =>
-                {
-                    b.Navigation("ImportBills");
-
-                    b.Navigation("ImportInventoryBills");
-                });
-
-            modelBuilder.Entity("DrugstoreManagement.Data.Entities.Employee", b =>
-                {
-                    b.Navigation("Accounts");
-                });
-
             modelBuilder.Entity("DrugstoreManagement.Data.Entities.ImportBill", b =>
                 {
                     b.Navigation("ImportBillDetails");
@@ -1207,11 +1114,6 @@ namespace DrugstoreManagement.Data.Migrations
                     b.Navigation("PrescriptionDetails");
 
                     b.Navigation("UnitPrices");
-                });
-
-            modelBuilder.Entity("DrugstoreManagement.Data.Entities.UserRole", b =>
-                {
-                    b.Navigation("Accounts");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,12 +8,6 @@ namespace DrugstoreManagement.Data.Entities
     [Table("UserRoles")]
     public partial class UserRole
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserRole()
-        {
-            Accounts = new HashSet<Account>();
-        }
-
         public int id { get; set; }
 
         [StringLength(30)]
@@ -43,7 +37,5 @@ namespace DrugstoreManagement.Data.Entities
 
         public bool? status { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Account> Accounts { get; set; }
     }
 }

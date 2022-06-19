@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrugstoreManagement.ViewModels.Common
 {
-    public class PageResult<T> : PagingRequestBase
+    public class PagedResult<T> : PagingRequestBase
     {
         public List<T> Items { get; set; }
         public int TotalRecords { get; set; }

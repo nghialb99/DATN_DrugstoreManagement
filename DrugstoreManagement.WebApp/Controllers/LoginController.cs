@@ -33,16 +33,18 @@ namespace DrugstoreManagement.WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(ModelState);
+                return View(request);
             }
-            var token = await _userApiClient.Authenticate(request);
-            if (token==""||token == null)
+            var result = await _userApiClient.Authenticate(request);
+            if (!result.IsSuccessed)
             {
-                HttpContext.Session.Remove("Token");
-                return View();
+                ModelState.AddModelError("", result.Message);
+                return View(request);
+                
             }
-            HttpContext.Session.SetString("Token", token);
-            var userPrincipal = this.ValidateToken(token);
+
+            HttpContext.Session.SetString("Token", result.ResultObj);
+            var userPrincipal = this.ValidateToken(result.ResultObj);
             var authenProperties = new AuthenticationProperties
             {
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10),

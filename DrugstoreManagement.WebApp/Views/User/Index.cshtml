@@ -1,5 +1,5 @@
 ﻿@using DrugstoreManagement.ViewModels.Common
-@model PageResult<DrugstoreManagement.ViewModels.System.Users.UserVm>
+@model PagedResult<DrugstoreManagement.ViewModels.System.Users.UserVm>
 
 @{
     ViewData["Title"] = "Quản lý người dùng";
@@ -34,26 +34,20 @@
           <div class="card">
             <div class="card-body" style="overflow-x:auto"> 
               <!-- Table with stripped rows -->
-              <table class="table datatable table-hover">
+              <table class="table "> @* datatable table-hover*@
                 <thead>
                     <tr>
                         <th scope="col">
                             Tên đăng nhập
                         </th>
                         <th scope="col">
-                            Họ
-                        </th>
-                        <th scope="col">
-                            Tên
+                            Họ & tên
                         </th>
                         <th scope="col">
                             Ngày sinh
                         </th>
                         <th scope="col">
                             Mã nhân viên
-                        </th>
-                        <th scope="col">
-                            Ngày tạo
                         </th>
                         <th scope="col">
                             Email
@@ -64,6 +58,9 @@
                         @*<th scope="col">
                             Ngày cuối đăng nhập
                         </th>*@
+                        <th scope="col">
+                            Ngày tạo
+                        </th>
                         <th scope="col">
                             Trạng thái
                         </th>
@@ -78,21 +75,14 @@
                             @Html.DisplayFor(modelItem => item.UserName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.FirstName)
+                            @Html.DisplayFor(modelItem => item.FullName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.LastName)
-                        </td>
-                        <td>
-                            @{string _Dob = item.Dob.ToString("yyyy/MM/dd");}
+                            @{string _Dob = item.Dob.ToString("dd/MM/yyyy");}
                             @Html.DisplayFor(modelItem => _Dob)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.employeeId)
-                        </td>
-                        <td>
-                            @{string _dateCreated = item.dateCreated.ToString("yyyy/MM/dd");}
-                            @Html.DisplayFor(modelItem => _dateCreated)
+                            @Html.DisplayFor(modelItem => item.EmployeeId)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
@@ -100,20 +90,25 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.PhoneNumber)
                         </td>
+                        <td>
+                            @{string _dateCreated = item.DateCreated.ToString("dd/MM/yyyy");}
+                            @Html.DisplayFor(modelItem => _dateCreated)
+                        </td>
                         @*<td>
                             @{DateTimeOffset? _LockoutEnd = item.LockoutEnd;}
                             @Html.DisplayFor(modelItem => _LockoutEnd)
                         </td>*@
                         <td>
-                            @Html.DisplayFor(modelItem => item.LockoutEnabled)
+                            @{string _LockoutEnabled = item.LockoutEnabled ? "Hoạt động" : "Khóa";}
+                            @Html.DisplayFor(modelItem => _LockoutEnabled)
                         </td>
                         <td>
-                            @Html.ActionLink("Chi tiết", "Details", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Chi tiết", "Details", new {  id=item.Id  })
                            
                         </td>
                         <td>
-                            @Html.ActionLink("Sửa", "Edit", new { /* id=item.PrimaryKey */ }) | 
-                            @Html.ActionLink("Khóa", "Lock", new { /* id=item.PrimaryKey */ })
+                            @Html.ActionLink("Sửa", "Edit", new {  id=item.Id }) | 
+                            @Html.ActionLink("Khóa", "Lock", new { id=item.Id })
                         </td>
                     </tr>
                     }

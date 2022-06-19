@@ -10,6 +10,132 @@ namespace DrugstoreManagement.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AppConfigs",
+                columns: table => new
+                {
+                    Key = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppConfigs", x => x.Key);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppRoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppRoleClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppRoles",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppRoles", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUserClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserClaims", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUserLogins",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserLogins", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserRoles", x => new { x.UserId, x.RoleId });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUsers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    employeeId = table.Column<int>(type: "int", nullable: false),
+                    dateCreated = table.Column<DateTime>(type: "date", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedUserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NormalizedEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SecurityStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumberConfirmed = table.Column<bool>(type: "bit", nullable: false),
+                    TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
+                    AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUserTokens",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUserTokens", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -71,14 +197,34 @@ namespace DrugstoreManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ImportInventoryBills",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    dateCreated = table.Column<DateTime>(type: "date", nullable: true),
+                    creator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    totalAmountWithVat = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: true),
+                    status = table.Column<int>(type: "int", nullable: true),
+                    note = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImportInventoryBills", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Invoices",
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    invoiceInfo = table.Column<string>(type: "xml", nullable: false),
-                    reasonDelete = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    status = table.Column<bool>(type: "bit", nullable: true)
+                    invoiceInfo = table.Column<string>(type: "xml", nullable: true),
+                    reasonDelete = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    status = table.Column<bool>(type: "bit", nullable: true),
+                    DiscountAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: true),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: true),
+                    TotalAmountAfterDiscount = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -240,33 +386,31 @@ namespace DrugstoreManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Accounts",
+                name: "ImportInventoryBillDetails",
                 columns: table => new
                 {
-                    username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    employeeId = table.Column<int>(type: "int", nullable: true),
-                    dateCreated = table.Column<DateTime>(type: "date", nullable: true),
-                    userRoleid = table.Column<int>(type: "int", nullable: true),
-                    veriCode = table.Column<int>(type: "int", nullable: true),
-                    numberOfLogin = table.Column<int>(type: "int", nullable: true),
-                    currentLoginDevice = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: false),
-                    historyLogin = table.Column<string>(type: "xml", nullable: false),
-                    note = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
+                    ImportInventoryBillId = table.Column<int>(type: "int", nullable: false),
+                    productId = table.Column<int>(type: "int", nullable: false),
+                    unitInput = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    exchangeValue = table.Column<int>(type: "int", nullable: false),
+                    quantityInput = table.Column<int>(type: "int", nullable: false),
+                    priceInput = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.username);
+                    table.PrimaryKey("PK_ImportInventoryBillDetails", x => new { x.ImportInventoryBillId, x.productId });
                     table.ForeignKey(
-                        name: "FK_Accounts_Employees_employeeId",
-                        column: x => x.employeeId,
-                        principalTable: "Employees",
-                        principalColumn: "id");
+                        name: "FK_ImportInventoryBillDetails_ImportInventoryBills_ImportInventoryBillId",
+                        column: x => x.ImportInventoryBillId,
+                        principalTable: "ImportInventoryBills",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Accounts_UserRoles_userRoleid",
-                        column: x => x.userRoleid,
-                        principalTable: "UserRoles",
-                        principalColumn: "id");
+                        name: "FK_ImportInventoryBillDetails_Products_productId",
+                        column: x => x.productId,
+                        principalTable: "Products",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -344,39 +488,10 @@ namespace DrugstoreManagement.Data.Migrations
                 {
                     table.PrimaryKey("PK_ImportBills", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ImportBills_Accounts_creator",
-                        column: x => x.creator,
-                        principalTable: "Accounts",
-                        principalColumn: "username",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_ImportBills_Suppliers_supplierId",
                         column: x => x.supplierId,
                         principalTable: "Suppliers",
                         principalColumn: "taxcode",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ImportInventoryBills",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    dateCreated = table.Column<DateTime>(type: "date", nullable: true),
-                    creator = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    totalAmountWithVat = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: true),
-                    status = table.Column<int>(type: "int", nullable: true),
-                    note = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImportInventoryBills", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_ImportInventoryBills_Accounts_creator",
-                        column: x => x.creator,
-                        principalTable: "Accounts",
-                        principalColumn: "username",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -408,53 +523,10 @@ namespace DrugstoreManagement.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ImportInventoryBillDetails",
-                columns: table => new
-                {
-                    ImportInventoryBillId = table.Column<int>(type: "int", nullable: false),
-                    productId = table.Column<int>(type: "int", nullable: false),
-                    unitInput = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    exchangeValue = table.Column<int>(type: "int", nullable: false),
-                    quantityInput = table.Column<int>(type: "int", nullable: false),
-                    priceInput = table.Column<decimal>(type: "decimal(18,0)", precision: 18, scale: 0, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ImportInventoryBillDetails", x => new { x.ImportInventoryBillId, x.productId });
-                    table.ForeignKey(
-                        name: "FK_ImportInventoryBillDetails_ImportInventoryBills_ImportInventoryBillId",
-                        column: x => x.ImportInventoryBillId,
-                        principalTable: "ImportInventoryBills",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ImportInventoryBillDetails_Products_productId",
-                        column: x => x.productId,
-                        principalTable: "Products",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Accounts_employeeId",
-                table: "Accounts",
-                column: "employeeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Accounts_userRoleid",
-                table: "Accounts",
-                column: "userRoleid");
-
             migrationBuilder.CreateIndex(
                 name: "IX_ImportBillDetails_productId",
                 table: "ImportBillDetails",
                 column: "productId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImportBills_creator",
-                table: "ImportBills",
-                column: "creator");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImportBills_supplierId",
@@ -465,11 +537,6 @@ namespace DrugstoreManagement.Data.Migrations
                 name: "IX_ImportInventoryBillDetails_productId",
                 table: "ImportInventoryBillDetails",
                 column: "productId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ImportInventoryBills_creator",
-                table: "ImportInventoryBills",
-                column: "creator");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PrescriptionDetails_productId",
@@ -505,7 +572,34 @@ namespace DrugstoreManagement.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppConfigs");
+
+            migrationBuilder.DropTable(
+                name: "AppRoleClaims");
+
+            migrationBuilder.DropTable(
+                name: "AppRoles");
+
+            migrationBuilder.DropTable(
+                name: "AppUserClaims");
+
+            migrationBuilder.DropTable(
+                name: "AppUserLogins");
+
+            migrationBuilder.DropTable(
+                name: "AppUserRoles");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
+
+            migrationBuilder.DropTable(
+                name: "AppUserTokens");
+
+            migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "EnterpriseInformations");
@@ -526,6 +620,9 @@ namespace DrugstoreManagement.Data.Migrations
                 name: "UnitPrices");
 
             migrationBuilder.DropTable(
+                name: "UserRoles");
+
+            migrationBuilder.DropTable(
                 name: "ImportBills");
 
             migrationBuilder.DropTable(
@@ -544,19 +641,10 @@ namespace DrugstoreManagement.Data.Migrations
                 name: "Suppliers");
 
             migrationBuilder.DropTable(
-                name: "Accounts");
-
-            migrationBuilder.DropTable(
                 name: "ProductCategorys");
 
             migrationBuilder.DropTable(
                 name: "SupplierRoles");
-
-            migrationBuilder.DropTable(
-                name: "Employees");
-
-            migrationBuilder.DropTable(
-                name: "UserRoles");
         }
     }
 }

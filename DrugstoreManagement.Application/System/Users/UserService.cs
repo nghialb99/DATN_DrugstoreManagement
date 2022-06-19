@@ -1,4 +1,5 @@
-﻿using DrugstoreManagement.Data.Entities;
+﻿using DrugstoreManagement.Data.EF;
+using DrugstoreManagement.Data.Entities;
 using DrugstoreManagement.Utilities.Exceptions;
 using DrugstoreManagement.ViewModels.Common;
 using DrugstoreManagement.ViewModels.System.Users;
@@ -18,22 +19,24 @@ namespace DrugstoreManagement.Application.System.Users
 {
     public class UserService : IUserService
     {
+        private readonly DrugstoreDbContext _context;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<AppRole> _roleManager;
         private readonly IConfiguration _config;
         public UserService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, 
-            RoleManager<AppRole> roleManager, IConfiguration config)
+            RoleManager<AppRole> roleManager, IConfiguration config, DrugstoreDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _config = config;
+            _context = context;
         }
         public async Task<ApiResult<string>> Authencate(LoginRequest request) //Task<ApiResult<string>>
         {
             var user = await _userManager.FindByNameAsync(request.UserName);
-            if (user == null) return new ApiErrorResult<string>("Tài khoản không tồn tại");
+            if (user == null) return new ApiErrorResult<string>("Thông tin đăng nhập không đúng");
 
             var result = await _signInManager.PasswordSignInAsync(user, request.Password, request.RememberMe, true);
             if (!result.Succeeded)
@@ -59,9 +62,35 @@ namespace DrugstoreManagement.Application.System.Users
             return new ApiSuccessResult<string>(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        public async Task<ApiResult<PageResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
+        public async Task<ApiResult<UserVm>> GetUserById(Guid id)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<UserVm>("Tài khoản không tồn tại");
+            }
+
+            var userVm = new UserVm()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FullName = user.FirstName + " " + user.LastName,
+                //Dob = user.Dob,
+                EmployeeId = user.employeeId,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                DateCreated = user.dateCreated,
+                LockoutEnd = user.LockoutEnd,
+                LockoutEnabled = user.LockoutEnabled,
+            };
+            
+            return new ApiSuccessResult<UserVm>(userVm);
+        }
+
+        public async Task<ApiResult<PagedResult<UserVm>>> GetUsersPaging(GetUserPagingRequest request)
         {
             var query = _userManager.Users;
+             
             if (string.IsNullOrEmpty(request.keyword))
             {
                 query = query.Where(x => x.LockoutEnabled == request.lockoutEnabled);
@@ -71,7 +100,7 @@ namespace DrugstoreManagement.Application.System.Users
                 query = query.Where(x => x.UserName.Contains(request.keyword)
                     || x.FirstName.Contains(request.keyword)
                     || x.LastName.Contains(request.keyword)
-                    || x.employeeId.ToString().Contains(request.keyword)
+                   // || x.employeeId.ToString().Contains(request.keyword)
                     || x.Email.Contains(request.keyword)
                     || x.PhoneNumber.Contains(request.keyword)
                     || x.LockoutEnabled == request.lockoutEnabled);
@@ -83,25 +112,24 @@ namespace DrugstoreManagement.Application.System.Users
                 {
                     Id = x.Id,
                     UserName = x.UserName,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Dob = x.Dob,
-                    employeeId = x.employeeId,
+                    FullName = x.FirstName + " " + x.LastName,
+                    //Dob = x.Dob,
+                    EmployeeId = x.employeeId,
                     Email = x.Email,
                     PhoneNumber = x.PhoneNumber,
-                    dateCreated = x.dateCreated,
+                    DateCreated = x.dateCreated,
                     LockoutEnd = x.LockoutEnd,
                     LockoutEnabled = x.LockoutEnabled,
 
                 }).ToListAsync();
-            var pagedResult = new PageResult<UserVm>()
+            var pagedResult = new PagedResult<UserVm>()
             {
                 TotalRecords = totalRow,
                 pageIndex = request.pageIndex,
                 pageSize = request.pageSize,
                 Items = data
             };
-            return new ApiSuccessResult<PageResult<UserVm>>(pagedResult);
+            return new ApiSuccessResult<PagedResult<UserVm>>(pagedResult);
         }
 
         public async Task<ApiResult<bool>> Register(RegisterRequest request)
@@ -118,12 +146,14 @@ namespace DrugstoreManagement.Application.System.Users
 
             user = new AppUser()
             {
-                Dob = request.Dob,
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                PhoneNumber = request.PhoneNumber
+                PhoneNumber = request.PhoneNumber,
+                employeeId = request.EmployeeId,
+                dateCreated = DateTime.Now,
+                
             };
             var result = await _userManager.CreateAsync(user, request.Password);
             if (result.Succeeded)
@@ -134,15 +164,15 @@ namespace DrugstoreManagement.Application.System.Users
 
         }
 
-        public async Task<ApiResult<bool>> Update(Guid id, UserUpdateRequest request)
+        public async Task<ApiResult<bool>> Update(UserUpdateRequest request)
         {
-            if (await _userManager.Users.AnyAsync(x => x.Id != id && x.Email == request.Email))
+            if (await _userManager.Users.AnyAsync(x => x.Id != request.Id && x.Email == request.Email))
             {
                 return new ApiErrorResult<bool>("Email đã được đăng kí cho tài khoản khác");
             }
-            var user = await _userManager.FindByIdAsync(id.ToString());
+            var user = await _userManager.FindByIdAsync(request.Id.ToString());
 
-            user.Dob = request.Dob;
+            //user.Dob = request.Dob;
             user.Email = request.Email;
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
