@@ -17,7 +17,7 @@ namespace DrugstoreManagement.ViewModels.System.Users
             RuleFor(x => x.LastName).NotEmpty().WithMessage("Tên không được để trống")
                 .MaximumLength(20).WithMessage("Không được vượt quá 20 kí tự");
 
-            RuleFor(x => x.Dob).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Tuổi không hợp lệ");
+            //RuleFor(x => x.Dob).GreaterThan(DateTime.Now.AddYears(-100)).WithMessage("Tuổi không hợp lệ");
 
             RuleFor(x => x.Email).NotEmpty().WithMessage("Email không được để trống")
                 .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")
