@@ -42,12 +42,29 @@ namespace DrugsoreManagement.BackendApi.Controllers
             return Ok();
         }
 
-        ////PUT: https://localhost/api/users/id
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> Lock([FromBody] Guid id)
-        //{
-        //    return Ok();
-        //}
+        //PUT: https://localhost/api/users/Lock/id
+        [HttpPut("Lock/{id}")]
+        public async Task<IActionResult> LockUser(Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.LockUser(id);
+
+            return Ok(result);
+        }
+
+        //PUT: https://localhost/api/users/UnLock/id
+        [HttpPut("UnLock/{id}")]
+        public async Task<IActionResult> UnLockUser(Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.UnLockUser(id);
+
+            return Ok(result);
+        }
 
         //PUT: https://localhost/api/users/id
         [HttpPut("{id}")]

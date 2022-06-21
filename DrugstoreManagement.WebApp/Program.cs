@@ -3,6 +3,7 @@ using DrugstoreManagement.ApiIntegration.Interface;
 using DrugstoreManagement.ViewModels.System.Users;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,14 +24,14 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromMinutes(30);
 });
 
-//builder.Services.AddSingleton<IHttpClientFactory, IHttpClientFactory>();
+
 builder.Services.AddTransient<IUserApiClient, UserApiClient>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-//if (builder.Environment.IsDevelopment())
-//{
-//    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
-//}
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+}
 
 
 var app = builder.Build();

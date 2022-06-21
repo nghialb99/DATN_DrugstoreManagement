@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DrugstoreManagement.ViewModels.System.Users
 {
-    public class RegisterRequest : RequestBase
+    public class RegisterRequest 
     {
         [Display(Name = "Tên")]
         public string? FirstName { get; set; }
@@ -17,7 +17,7 @@ namespace DrugstoreManagement.ViewModels.System.Users
         public string? LastName { get; set; }
 
         [Display(Name = "Mã nhân viên")]
-        public int EmployeeId { get; set; }
+        public string EmployeeId { get; set; }
 
         [Display(Name = "Email")]
         public string? Email { get; set; }

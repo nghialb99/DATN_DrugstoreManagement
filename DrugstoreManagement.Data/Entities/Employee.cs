@@ -23,7 +23,7 @@ namespace DrugstoreManagement.Data.Entities
         public string gender { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? birthDate { get; set; }
+        public DateTime birthDate { get; set; }
 
         [StringLength(30)]
         public string phoneNumber { get; set; }

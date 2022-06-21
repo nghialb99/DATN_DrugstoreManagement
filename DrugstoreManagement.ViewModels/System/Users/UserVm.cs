@@ -27,7 +27,6 @@ namespace DrugstoreManagement.ViewModels.System.Users
         [Display(Name = "Địa chỉ")]
         public string? Address { get; set; }
 
-        public int EmployeeId { get; set; }
 
         [Display(Name = "Mã nhân viên")]
         public string? EmployeeCode { get; set; }

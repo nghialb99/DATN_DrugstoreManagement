@@ -15,5 +15,7 @@ namespace DrugstoreManagement.ApiIntegration.Interface
         Task<ApiResult<UserVm>> GetUserById(Guid id, string token);
         Task<ApiResult<bool>> CreateAcount(RegisterRequest request);
         Task<ApiResult<bool>> UpdateUser(UserUpdateRequest request);
+        Task<ApiResult<bool>> LockUser(Guid id);
+        Task<ApiResult<bool>> UnLockUser(Guid id);
     }
 }

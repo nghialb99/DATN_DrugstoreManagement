@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DrugstoreManagement.ViewModels.System.Users
 {
-    public class UserUpdateRequest : RequestBase
+    public class UserUpdateRequest 
     {
         public Guid Id { get; set; }
 

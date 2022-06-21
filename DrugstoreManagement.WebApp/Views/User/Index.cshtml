@@ -1,9 +1,21 @@
 ﻿@using DrugstoreManagement.ViewModels.Common
-@model PagedResult<DrugstoreManagement.ViewModels.System.Users.UserVm>
+@using DrugstoreManagement.ViewModels.System.Users
+
+@model PagedResult<UserVm>
 
 @{
     ViewData["Title"] = "Quản lý người dùng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+
+        const myTimeout = setTimeout(myGreeting, 2000);
+
+        function myGreeting() {
+          $('#msgAlert').fadeOut('slow')
+        }
+    </script>
 }
 <div class="pagetitle">
       <h1>Quản lý người dùng</h1>
@@ -22,16 +34,40 @@
              <div class="card-2">
             <div class="card-body-2" > 
               <h5 class="card-title">Danh sách người dùng</h5>
-              <div class="nav-item" style="padding-bottom: 5px">
-                  <a class="btn-ct" asp-area="" asp-controller="User" asp-action="Create">
-                    <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-add-100.png" width="35" height="35"/></i>
-                    <span>Thêm mới</span>
-                  </a>
+              <div class="row">
+                  <div class="nav-item col-lg-6 col-xs-12" style="padding-bottom: 5px">
+                      <a class="btn-ct" asp-area="" asp-controller="User" asp-action="Create">
+                        <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-add-100.png" width="35" height="35"/></i>
+                        <span>Thêm mới</span>
+                      </a>
+                  </div>
+                  <div class="col-lg-6 col-xs-12">      
+                      <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-lg-9">
+                                <input type="text" value="@ViewBag.Keyword" name="keyword" class="form-control" />
+                            </div>
+                            
+                            <div class="col-lg-3">
+                                <button type="submit" class="btn-ct">Tìm</button>
+                                <button type="button" class="btn-ct" onclick="window.location.href='/User/Index'">Làm mới</button>
+                            </div>
+                        </div>
+                    </form>
+                  </div>
               </div>
             </div>
           </div>
 
           <div class="card">
+            <div class="card-body">
+                @if (ViewBag.SuccessMsg != null)
+                {
+                    <div id="msgAlert" class="alert alert-success" role="alert">
+                        @ViewBag.SuccessMsg
+                    </div>
+                }
+            </div>
             <div class="card-body" style="overflow-x:auto"> 
               <!-- Table with stripped rows -->
               <table class="table "> @* datatable table-hover*@
@@ -43,9 +79,9 @@
                         <th scope="col">
                             Họ & tên
                         </th>
-                        <th scope="col">
+@*                        <th scope="col">
                             Ngày sinh
-                        </th>
+                        </th>*@
                         <th scope="col">
                             Mã nhân viên
                         </th>
@@ -64,8 +100,11 @@
                         <th scope="col">
                             Trạng thái
                         </th>
-                        <th scope="col">#</th>
-                        <th scope="col">#</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,12 +116,12 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.FullName)
                         </td>
-                        <td>
+                        @*<td>
                             @{string _Dob = item.Dob.ToString("dd/MM/yyyy");}
                             @Html.DisplayFor(modelItem => _Dob)
-                        </td>
+                        </td>*@
                         <td>
-                            @Html.DisplayFor(modelItem => item.EmployeeId)
+                            @Html.DisplayFor(modelItem => item.EmployeeCode)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Email)
@@ -98,7 +137,7 @@
                             @{DateTimeOffset? _LockoutEnd = item.LockoutEnd;}
                             @Html.DisplayFor(modelItem => _LockoutEnd)
                         </td>*@
-                        <td>
+                        <td style="@(item.LockoutEnabled ? "" : "color:red")">
                             @{string _LockoutEnabled = item.LockoutEnabled ? "Hoạt động" : "Khóa";}
                             @Html.DisplayFor(modelItem => _LockoutEnabled)
                         </td>
@@ -107,8 +146,16 @@
                            
                         </td>
                         <td>
-                            @Html.ActionLink("Sửa", "Edit", new {  id=item.Id }) | 
-                            @Html.ActionLink("Khóa", "Lock", new { id=item.Id })
+                            @Html.ActionLink("Sửa", "UpdateUser", new {  id=item.Id })
+                        </td>
+                        <td>
+                            @(User.Identity.Name == item.UserName ? "" : @Html.ActionLink(item.LockoutEnabled ? "Khoá" : "Mở Khóa", item.LockoutEnabled ? "LockUser" : "UnLockUser", new {  id=item.Id }))
+                        </td>
+                        <td>
+                            @Html.ActionLink("Đặt lại mật khẩu", "ResetPassword", new {  id=item.Id })
+                        </td>
+                        <td>
+                            @Html.ActionLink("Phân quyền", "RoleAssign", new {  id=item.Id })
                         </td>
                     </tr>
                     }
@@ -118,8 +165,10 @@
               <!-- End Table with stripped rows -->
 
             </div>
+            <div class="card-body">
+                @await Component.InvokeAsync("Pager", Model)
+            </div>
           </div>
-
         </div>
       </div>
     </section>

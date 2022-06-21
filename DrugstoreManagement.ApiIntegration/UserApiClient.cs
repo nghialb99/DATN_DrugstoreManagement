@@ -54,7 +54,9 @@ namespace DrugstoreManagement.ApiIntegration
             var client = _httpClientFactory.CreateClient();
 
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
+            var httpContext = _httpContextAccessor.HttpContext;
+            GuardAgainst.Null(httpContext);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.PostAsync("/api/users/createAcount", httpContent);
             var result = new ApiResult<bool>();
             if (response.IsSuccessStatusCode)
@@ -96,16 +98,22 @@ namespace DrugstoreManagement.ApiIntegration
         public async Task<ApiResult<PagedResult<UserVm>>> GetUsersPagings(GetUserPagingRequest request)
         {
             var client = _httpClientFactory.CreateClient();
-            //var sessions = _httpContextAccessor.HttpContext.Session.GetString("Token");
 
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
+            var httpContext = _httpContextAccessor.HttpContext;
+            GuardAgainst.Null(httpContext);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.GetAsync($"/api/Users/paging?pageIndex=" +
                 $"{request.pageIndex}&pageSize={request.pageSize}&lockoutEnabled={request.lockoutEnabled}" +
                 $"&keyword={request.keyword}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return new ApiErrorResult<PagedResult<UserVm>>() {Message = response.StatusCode.ToString() + " " + response.ReasonPhrase};
+            }
             var body = await response.Content.ReadAsStringAsync();
             var users = JsonConvert.DeserializeObject<ApiSuccessResult<PagedResult<UserVm>>>(body);
-            GuardAgainst.Null<ApiResult<PagedResult<UserVm>>>(users);
+            GuardAgainst.Null(users);
             return users;
         }
 
@@ -116,8 +124,57 @@ namespace DrugstoreManagement.ApiIntegration
             var client = _httpClientFactory.CreateClient();
 
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", request.BearerToken);
+            var httpContext = _httpContextAccessor.HttpContext;
+            GuardAgainst.Null(httpContext);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.PutAsync($"/api/users/{request.Id}", httpContent);
+            var result = new ApiResult<bool>();
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null<ApiResult<bool>>(result);
+                return result;
+            }
+            else
+            {
+                result = JsonConvert.DeserializeObject<ApiErrorResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null<ApiResult<bool>>(result);
+                return result;
+            }
+        }
+
+        public async Task<ApiResult<bool>> LockUser(Guid id)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            var httpContext = _httpContextAccessor.HttpContext;
+            GuardAgainst.Null(httpContext);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
+            var response = await client.PutAsync($"/api/users/lock/{id}", null);
+            var result = new ApiResult<bool>();
+            if (response.IsSuccessStatusCode)
+            {
+                result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null<ApiResult<bool>>(result);
+                return result;
+            }
+            else
+            {
+                result = JsonConvert.DeserializeObject<ApiErrorResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null<ApiResult<bool>>(result);
+                return result;
+            }
+        }
+        public async Task<ApiResult<bool>> UnLockUser(Guid id)
+        {
+            var client = _httpClientFactory.CreateClient();
+
+            client.BaseAddress = new Uri(_configuration["BaseAddress"]);
+            var httpContext = _httpContextAccessor.HttpContext;
+            GuardAgainst.Null(httpContext);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
+            var response = await client.PutAsync($"/api/users/unlock/{id}", null);
             var result = new ApiResult<bool>();
             if (response.IsSuccessStatusCode)
             {

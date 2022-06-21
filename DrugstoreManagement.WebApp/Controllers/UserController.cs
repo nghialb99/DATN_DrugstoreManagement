@@ -14,8 +14,8 @@ namespace DrugstoreManagement.WebApp.Controllers
         {
             _userApiClient = userApiClient;
         }
-        public async Task<IActionResult> Index(string keyword = " ", bool lockoutEnabled = true,
-            int pageIndex = 1, int pageSize = 20)
+        public async Task<IActionResult> Index(string keyword , bool lockoutEnabled = false,
+            int pageIndex = 1, int pageSize = 5)
         {
             var request = new GetUserPagingRequest()
             {
@@ -23,12 +23,15 @@ namespace DrugstoreManagement.WebApp.Controllers
                 lockoutEnabled = lockoutEnabled,
                 pageIndex = pageIndex,
                 pageSize = pageSize,
-                BearerToken = HttpContext.Session.GetString("Token"),
-        };
+            };
             var data = await _userApiClient.GetUsersPagings(request);
+            if(!data.IsSuccessed) return BadRequest(data.Message);
             ViewBag.Keyword = keyword;
-
-
+ 
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
             return View(data.ResultObj);
         }
 
@@ -39,7 +42,7 @@ namespace DrugstoreManagement.WebApp.Controllers
             GuardAgainst.Null<string>(token);
 
             var result = await _userApiClient.GetUserById(id, token);
-            if (result.IsSuccessed) return RedirectToAction("Index");
+            if (!result.IsSuccessed) return RedirectToAction("Index");
 
             return View(result.ResultObj);
         }
@@ -53,9 +56,12 @@ namespace DrugstoreManagement.WebApp.Controllers
         public async Task<IActionResult> Create(RegisterRequest request)
         {
             if (!ModelState.IsValid) return View();
-            request.BearerToken = HttpContext.Session.GetString("Token");
             var result = await _userApiClient.CreateAcount(request);
-            if(result.IsSuccessed) return RedirectToAction("Index");
+            if (result.IsSuccessed)
+            {
+                TempData["result"] = "Thêm mới người dùng thành công";
+                return RedirectToAction("Index");
+            }
 
             return View(request);
         }
@@ -72,9 +78,43 @@ namespace DrugstoreManagement.WebApp.Controllers
             var token = HttpContext.Session.GetString("Token");
             GuardAgainst.Null<string>(token);
             var result = await _userApiClient.UpdateUser(request);
-            if (result.IsSuccessed) return RedirectToAction("Index");
+            if (result.IsSuccessed)
+            {
+                TempData["result"] = "Cập nhật người dùng thành công";
+                return RedirectToAction("Index");
+            }
 
             return View(result);
+        }
+        [HttpGet]
+        public async Task<IActionResult> LockUser(Guid id)
+        {
+            if (!ModelState.IsValid) return View();
+            var token = HttpContext.Session.GetString("Token");
+            GuardAgainst.Null<string>(token);
+            var result = await _userApiClient.LockUser(id);
+            if (result.IsSuccessed)
+            {
+                TempData["result"] = "Khóa người dùng thành công";
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> UnLockUser(Guid id)
+        {
+            if (!ModelState.IsValid) return View();
+            var token = HttpContext.Session.GetString("Token");
+            GuardAgainst.Null<string>(token);
+            var result = await _userApiClient.UnLockUser(id);
+            if (result.IsSuccessed)
+            {
+                TempData["result"] = "Mở khóa người dùng thành công";
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
