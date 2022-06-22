@@ -57,12 +57,18 @@ namespace DrugstoreManagement.WebApp.Controllers
         {
             if (!ModelState.IsValid) return View();
             var result = await _userApiClient.CreateAcount(request);
+            
             if (result.IsSuccessed)
             {
                 TempData["result"] = "Thêm mới người dùng thành công";
                 return RedirectToAction("Index");
             }
+            else TempData["result"] = result.Message;
 
+            if (TempData["result"] != null)
+            {
+                ViewBag.SuccessMsg = TempData["result"];
+            }
             return View(request);
         }
 

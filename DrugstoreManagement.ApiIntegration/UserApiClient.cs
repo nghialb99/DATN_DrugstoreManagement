@@ -33,18 +33,27 @@ namespace DrugstoreManagement.ApiIntegration
             var client = _httpClientFactory.CreateClient();
 
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
-            var response = await client.PostAsync("/api/users/authenticate", httpContent);
-            var token = new ApiResult<string>();
-            if (response.IsSuccessStatusCode)
+            try
             {
-                token = JsonConvert.DeserializeObject<ApiSuccessResult<string>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<string>>(token);
-                return token;
+                var response = await client.PostAsync("/api/users/authenticate", httpContent);
+                var token = new ApiResult<string>();
+                if (response.IsSuccessStatusCode)
+                {
+                    token = JsonConvert.DeserializeObject<ApiSuccessResult<string>>(await response.Content.ReadAsStringAsync());
+                    GuardAgainst.Null<ApiResult<string>>(token);
+                    return token;
+                }
+                else
+                {
+                    return new ApiErrorResult<string>("404");
+                }
             }
-            else
+            catch
             {
-                return new ApiErrorResult<string>("404");
+                return new ApiErrorResult<string>("404 - Không thể kết nối đến máy chủ");
             }
+            
+            
         }
 
         public async Task<ApiResult<bool>> CreateAcount(RegisterRequest request)
@@ -58,18 +67,16 @@ namespace DrugstoreManagement.ApiIntegration
             GuardAgainst.Null(httpContext);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.PostAsync("/api/users/createAcount", httpContent);
-            var result = new ApiResult<bool>();
+
             if (response.IsSuccessStatusCode)
             {
-                result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
+                var result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null(result);
                 return result;
             }
             else
             {
-                result = JsonConvert.DeserializeObject<ApiErrorResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
-                return result;
+                return new ApiErrorResult<bool>(response.ReasonPhrase);
             }
         }
 
@@ -80,18 +87,16 @@ namespace DrugstoreManagement.ApiIntegration
             client.BaseAddress = new Uri(_configuration["BaseAddress"]);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await client.GetAsync($"/api/Users/{id}");
-            var result = new ApiResult<UserVm>();
+
             if (response.IsSuccessStatusCode)
             {
-                result = JsonConvert.DeserializeObject<ApiSuccessResult<UserVm>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<UserVm>>(result);
+                var result = JsonConvert.DeserializeObject<ApiSuccessResult<UserVm>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null(result);
                 return result;
             }
             else
             {
-                result = JsonConvert.DeserializeObject<ApiErrorResult<UserVm>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<UserVm>>(result);
-                return result;
+                return new ApiErrorResult<UserVm>(response.ReasonPhrase);
             }
         }
 
@@ -109,7 +114,7 @@ namespace DrugstoreManagement.ApiIntegration
 
             if (!response.IsSuccessStatusCode)
             {
-                return new ApiErrorResult<PagedResult<UserVm>>() {Message = response.StatusCode.ToString() + " " + response.ReasonPhrase};
+                return new ApiErrorResult<PagedResult<UserVm>>(response.ReasonPhrase);
             }
             var body = await response.Content.ReadAsStringAsync();
             var users = JsonConvert.DeserializeObject<ApiSuccessResult<PagedResult<UserVm>>>(body);
@@ -128,18 +133,16 @@ namespace DrugstoreManagement.ApiIntegration
             GuardAgainst.Null(httpContext);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.PutAsync($"/api/users/{request.Id}", httpContent);
-            var result = new ApiResult<bool>();
+
             if (response.IsSuccessStatusCode)
             {
-                result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
+                var result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null(result);
                 return result;
             }
             else
             {
-                result = JsonConvert.DeserializeObject<ApiErrorResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
-                return result;
+                return new ApiErrorResult<bool>(response.ReasonPhrase);
             }
         }
 
@@ -152,18 +155,16 @@ namespace DrugstoreManagement.ApiIntegration
             GuardAgainst.Null(httpContext);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.PutAsync($"/api/users/lock/{id}", null);
-            var result = new ApiResult<bool>();
+
             if (response.IsSuccessStatusCode)
             {
-                result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
+                var result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null(result);
                 return result;
             }
             else
             {
-                result = JsonConvert.DeserializeObject<ApiErrorResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
-                return result;
+                return new ApiErrorResult<bool>(response.ReasonPhrase);
             }
         }
         public async Task<ApiResult<bool>> UnLockUser(Guid id)
@@ -175,18 +176,16 @@ namespace DrugstoreManagement.ApiIntegration
             GuardAgainst.Null(httpContext);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", httpContext.Session.GetString("Token"));
             var response = await client.PutAsync($"/api/users/unlock/{id}", null);
-            var result = new ApiResult<bool>();
+
             if (response.IsSuccessStatusCode)
             {
-                result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
+                var result = JsonConvert.DeserializeObject<ApiSuccessResult<bool>>(await response.Content.ReadAsStringAsync());
+                GuardAgainst.Null(result);
                 return result;
             }
             else
             {
-                result = JsonConvert.DeserializeObject<ApiErrorResult<bool>>(await response.Content.ReadAsStringAsync());
-                GuardAgainst.Null<ApiResult<bool>>(result);
-                return result;
+                return new ApiErrorResult<bool>(response.ReasonPhrase);
             }
         }
     }

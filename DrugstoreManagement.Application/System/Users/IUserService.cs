@@ -23,8 +23,6 @@ namespace DrugstoreManagement.Application.System.Users
         Task<ApiResult<bool>> LockUser(Guid id);
         Task<ApiResult<bool>> UnLockUser(Guid id);
 
-        //Task<ApiResult<bool>> Delete(Guid id);
-
-        //Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
+        Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request);
     }
 }

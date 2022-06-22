@@ -4,6 +4,16 @@
     ViewData["Title"] = "Create";
     //Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts{
+    <script>
+
+        const myTimeout = setTimeout(myGreeting, 2000);
+
+        function myGreeting() {
+          $('#msgAlert').fadeOut('slow')
+        }
+    </script>
+}
 <div class="pagetitle">
       <h1>Thêm mới người dùng</h1>
       <nav>
@@ -19,6 +29,14 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="card">
+            <div class="card-body">
+                @if (ViewBag.SuccessMsg != null)
+                {
+                    <div id="msgAlert" class="alert alert-success" role="alert">
+                        @ViewBag.SuccessMsg
+                    </div>
+                }
+            </div>
             <div class="card-body" style="overflow-x:auto"> 
                 <form class="row g-3 needs-validation" asp-action="Create" style="padding:5px 40px 5px 40px">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>

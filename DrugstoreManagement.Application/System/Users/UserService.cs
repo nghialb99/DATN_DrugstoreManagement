@@ -50,6 +50,10 @@ namespace DrugstoreManagement.Application.System.Users
             await _userManager.UpdateAsync(user);
 
             var roles = await _userManager.GetRolesAsync(user);
+            if (roles.Count == 0)
+            {
+                return new ApiErrorResult<string>("Tài khoản chưa được cấp quyền");
+            }
             var claims = new[]
             {
                 new Claim(ClaimTypes.Email,user.Email),
@@ -169,7 +173,7 @@ namespace DrugstoreManagement.Application.System.Users
             }
             if (await _userManager.FindByEmailAsync(request.Email) != null)
             {
-                return new ApiErrorResult<bool>("emai đã tồn tại");
+                return new ApiErrorResult<bool>("email đã tồn tại");
             }
 
             user = new AppUser()
@@ -181,7 +185,7 @@ namespace DrugstoreManagement.Application.System.Users
                 PhoneNumber = request.PhoneNumber,
                 EmployeeId = request.EmployeeId,
                 DateCreated = DateTime.Now,
-                ImageFilePath = @"assets\Resouse\icons8-male-user-100.png",
+                ImageFilePath = @"/assets/Resouse/icons8-male-user-100.png",
 
             };
             var result = await _userManager.CreateAsync(user, request.Password);
@@ -206,6 +210,7 @@ namespace DrugstoreManagement.Application.System.Users
             user.FirstName = request.FirstName;
             user.LastName = request.LastName;
             user.PhoneNumber = request.PhoneNumber;
+            user.ImageFilePath = request.ImageFilePath;
 
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
@@ -253,13 +258,42 @@ namespace DrugstoreManagement.Application.System.Users
             {
                 return new ApiSuccessResult<bool>(true);
             }
-            return new ApiErrorResult<bool>("Khóa Người dùng không thành công");
+            return new ApiErrorResult<bool>("Mở khóa Người dùng không thành công");
         }
 
         private async Task<string> GetRoleNameByUser(AppUser user)
         {
             return (await _userManager.GetRolesAsync(user)).First();
 
+        }
+
+        public async Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<bool>("Tài khoản không tồn tại");
+            }
+            var removedRoles = request.Roles.Where(x => x.Selected == false).Select(x => x.Name).ToList();
+            foreach (var roleName in removedRoles)
+            {
+                if (await _userManager.IsInRoleAsync(user, roleName) == true)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, roleName);
+                }
+            }
+            await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+            var addedRoles = request.Roles.Where(x => x.Selected).Select(x => x.Name).ToList();
+            foreach (var roleName in addedRoles)
+            {
+                if (await _userManager.IsInRoleAsync(user, roleName) == false)
+                {
+                    await _userManager.AddToRoleAsync(user, roleName);
+                }
+            }
+
+            return new ApiSuccessResult<bool>();
         }
     }
 }

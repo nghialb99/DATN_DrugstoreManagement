@@ -22,7 +22,6 @@
     <Folder Include="Catalog\Custormers\" />
     <Folder Include="Catalog\Employees\" />
     <Folder Include="Catalog\Suppliers\" />
-    <Folder Include="System\Roles\" />
   </ItemGroup>
 
 </Project>

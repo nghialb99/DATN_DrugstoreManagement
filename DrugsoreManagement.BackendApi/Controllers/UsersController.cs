@@ -35,11 +35,8 @@ namespace DrugsoreManagement.BackendApi.Controllers
                 return BadRequest(ModelState);
 
             var result = await _userService.Register(request);
-            if (!result.IsSuccessed)
-            {
-                return BadRequest(result.Message);
-            }
-            return Ok();
+
+            return Ok(result);
         }
 
         //PUT: https://localhost/api/users/Lock/id
@@ -90,6 +87,17 @@ namespace DrugsoreManagement.BackendApi.Controllers
         {
             var user = await _userService.GetUserById(id);
             return Ok(user);
+        }
+
+        [HttpPut("{id}/roles")]
+        public async Task<IActionResult> RoleAssign(Guid id, [FromBody] RoleAssignRequest request)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _userService.RoleAssign(id, request);
+
+            return Ok(result);
         }
     }
 }
