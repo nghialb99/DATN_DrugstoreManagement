@@ -17,7 +17,7 @@ namespace DrugstoreManagement.ViewModels.System.Users
         public string? LastName { get; set; }
 
         [Display(Name = "Mã nhân viên")]
-        public string EmployeeId { get; set; }
+        public string? EmployeeId { get; set; }
 
         [Display(Name = "Email")]
         public string? Email { get; set; }

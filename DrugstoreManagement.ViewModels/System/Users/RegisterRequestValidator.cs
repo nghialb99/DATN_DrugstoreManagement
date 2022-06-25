@@ -23,9 +23,10 @@ namespace DrugstoreManagement.ViewModels.System.Users
                 .Matches(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$")
                 .WithMessage("Email không đúng định dạng");
 
-            //RuleFor(x => x.PhoneNumber).NotEmpty().WithMessage("Phone number is required");
+            RuleFor(x => x.EmployeeId).NotEmpty().WithMessage("Mã nhân viên không được để trống");
 
             RuleFor(x => x.UserName).NotEmpty().WithMessage("Tên đăng nhập không được để trống");
+
 
             RuleFor(x => x.Password).NotEmpty().WithMessage("Không được để trống")
                 .MinimumLength(6).WithMessage("Mật khẩu tối thiểu 6 kí tự");

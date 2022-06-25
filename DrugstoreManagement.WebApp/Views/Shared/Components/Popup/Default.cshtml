@@ -1,0 +1,16 @@
+﻿@using DrugstoreManagement.ViewModels.Common
+@model Popup
+@{
+    <div class="popup" id="@Model.PopupId">
+        <h2>@Model.Title</h2>
+        <p>@Model.Description</p>
+        <div class="row">
+            <div class="col-lg-6">
+                <a asp-action="@Model.ActionName" asp-route-id="@Model.RouteId" class="btn-ct" >Đồng ý</a>
+            </div>
+            <div class="col-lg-6">
+                <button type="button" class="btn-ct" onclick="closePopup1()">Hủy</button>
+            </div>
+        </div>
+    </div>
+}

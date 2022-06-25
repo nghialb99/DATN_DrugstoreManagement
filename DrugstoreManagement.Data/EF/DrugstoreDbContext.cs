@@ -130,6 +130,12 @@ namespace DrugstoreManagement.Data.EF
                 .Property(e => e.DiscountAmount)
                 .HasPrecision(18, 0);
         }
+        
+        public virtual DbSet<IdentityUserLogin<Guid>> AppUserLogins { get; set; }
+        public virtual DbSet<IdentityUserClaim<Guid>> AppUserClaims { get; set; }
+        public virtual DbSet<IdentityUserRole<Guid>> AppUserRoles { get; set; }
+        public virtual DbSet<IdentityRoleClaim<Guid>> AppRoleClaims { get; set; }
+        public virtual DbSet<IdentityUserToken<Guid>> AppUserTokens { get; set; }
         public virtual DbSet<AppConfig> AppConfigs { get; set; }
         public virtual DbSet<AppUser> AppUsers { get; set; }
         public virtual DbSet<AppRole> AppRoles { get; set; }

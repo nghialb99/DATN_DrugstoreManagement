@@ -1,0 +1,98 @@
+﻿@model IEnumerable<DrugstoreManagement.ViewModels.System.Roles.RoleVm>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+<script>
+
+    const myTimeout = setTimeout(myGreeting, 2000);
+
+    function myGreeting() {
+        $('#msgAlert').fadeOut('slow')
+    }
+</script>
+}
+<div class="pagetitle">
+      <h1>Quản lý Roles</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+          <li class="breadcrumb-item">Roles</li>
+          @*<li class="breadcrumb-item active">Data</li>*@
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+             <div class="card-2">
+            <div class="card-body-2" > 
+              <h5 class="card-title">Danh sách Roles</h5>
+              <div class="nav-item col-lg-6 col-xs-12" style="padding-bottom: 5px">
+                <a class="btn-ct" asp-area="" asp-controller="Role" asp-action="Create">
+                    <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-add-100.png" width="35" height="35"/></i>
+                    <span>Thêm mới</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+                @if (ViewBag.SuccessMsg != null)
+                {
+                    <div id="msgAlert" class="alert alert-success" role="alert">
+                        @ViewBag.SuccessMsg
+                    </div>
+                }
+            </div>
+            <div class="card-body" style="overflow-x:auto"> 
+              <!-- Table with stripped rows -->
+              <table class="table "> @* datatable table-hover*@
+                <thead>
+                    <tr>
+                        @*<th scope="col">
+                            @Html.DisplayNameFor(model => model.Id)
+                        </th>*@
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th scope="col">
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                    <tr>
+                        @*<td scope="row">
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Sửa", "Edit", new { id=item.Id }) |
+                            @Html.ActionLink("Xóa", "Delete", new {  id=item.Id  })
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+                
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </section>

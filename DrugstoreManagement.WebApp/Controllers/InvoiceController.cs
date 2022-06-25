@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
@@ -10,6 +11,8 @@ namespace DrugstoreManagement.WebApp.Controllers
         {
             _logger = logger;
         }
+        [HttpGet]
+        [Authorize(Roles = "createInvoice")]
         public IActionResult CreateInvoice()
         {
             return View();

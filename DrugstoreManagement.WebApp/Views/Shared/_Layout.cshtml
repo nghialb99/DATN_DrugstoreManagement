@@ -370,20 +370,20 @@
       </li><!-- End EnterpriseInfo Nav -->
 	  
 	  <li class="nav-item">
-        <a class="nav-link @(controllerName == "User" ? "":"collapsed")" data-bs-target="#user-nav" data-bs-toggle="collapse" aria-expanded="@(controllerName == "User" ? "true":"false")" href="#">
+        <a class="nav-link @((controllerName == "User" || controllerName == "Role") && actionName != "Forbidden" ? "":"collapsed")" data-bs-target="#user-nav" data-bs-toggle="collapse" aria-expanded="@((controllerName == "User" || controllerName == "Role") && actionName != "Forbidden" ? "true":"false")" href="#">
           <i class="bi"><img src="https://localhost:5077/assets/Resouse/icons8-myspace-100.png" width="40" height="40"/></i>
 		  <span>Quản lý người dùng</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="user-nav" class="nav-content collapse @(controllerName == "User" ? "show":"")" data-bs-parent="#sidebar-nav">
+        <ul id="user-nav" class="nav-content collapse @((controllerName == "User" || controllerName == "Role") && actionName != "Forbidden" ? "show":"")" data-bs-parent="#sidebar-nav">
           <li>
-            <a class="@(controllerName == "User" && actionName == "UserRole" ? "":"nav-item")" href="">
+            <a class="@(controllerName == "Role" ? "nav-link":"")" asp-controller="Role" asp-action="Index">
               <i class="bi">
 			  <img src="https://localhost:5077/assets/Resouse/icons8-user-groups-100.png" width="35" height="35"/></i>
 			  <span>Nhóm người dùng</span>
             </a>
           </li>
           <li>
-            <a class="@(controllerName == "User" && actionName == "Index" ? "nav-link":"")" asp-controller="User" asp-action="Index">
+            <a class="@(controllerName == "User" ? "nav-link":"")" asp-controller="User" asp-action="Index">
               <i class="bi">
 			  <img src="https://localhost:5077/assets/Resouse/icons8-user-100.png" width="35" height="35"/></i>
 			  <span>Người dùng</span>
@@ -472,6 +472,7 @@
 
   <!-- Template Main JS File -->
   <script src="https://localhost:5077/assets/js/main.js"></script>
+  <script src="https://localhost:5077/assets/js/popup.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   @RenderSection("Scripts", required: false)

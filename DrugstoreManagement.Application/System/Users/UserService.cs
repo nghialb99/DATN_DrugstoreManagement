@@ -223,14 +223,10 @@ namespace DrugstoreManagement.Application.System.Users
         public async Task<ApiResult<bool>> LockUser(Guid id)
         {
             var user = await _userManager.FindByIdAsync(id.ToString());
-            if (user == null)
-            {
-                return new ApiErrorResult<bool>("User không tồn tại");
-            }
-            if (user.LockoutEnabled == false)
-            {
-                return new ApiErrorResult<bool>("Tài khoản này đã bị khóa");
-            }
+            if (user == null) return new ApiErrorResult<bool>("User không tồn tại");
+            if (user.UserName == "0302666666") return new ApiErrorResult<bool>("Tài khoản ADMIN không thể bị khóa");
+            if (user.LockoutEnabled == false) return new ApiErrorResult<bool>("Tài khoản này đã bị khóa");
+
             user.LockoutEnabled = false;
 
             var result = await _userManager.UpdateAsync(user);
@@ -238,7 +234,7 @@ namespace DrugstoreManagement.Application.System.Users
             {
                 return new ApiSuccessResult<bool>(true);
             }
-            return new ApiErrorResult<bool>("Khóa Người dùng không thành công");
+            return new ApiErrorResult<bool>("Khóa người dùng không thành công");
         }
         public async Task<ApiResult<bool>> UnLockUser(Guid id)
         {

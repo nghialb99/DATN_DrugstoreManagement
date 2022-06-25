@@ -3,10 +3,12 @@ using DrugstoreManagement.Utilities;
 using DrugstoreManagement.ViewModels.System.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DrugstoreManagement.WebApp.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class UserController : BaseController
     {
         private readonly IUserApiClient _userApiClient;
@@ -35,6 +37,13 @@ namespace DrugstoreManagement.WebApp.Controllers
             return View(data.ResultObj);
         }
 
+        //Forbidden
+        [AllowAnonymous]
+        public IActionResult Forbidden()
+        {
+            return View();
+        }
+        
         [HttpGet]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -91,6 +100,15 @@ namespace DrugstoreManagement.WebApp.Controllers
             }
 
             return View(result);
+        }
+
+        [HttpGet]
+        public IActionResult LockUser1(Guid id)
+        {
+            if (!ModelState.IsValid) return View();
+            ViewBag.UID = id;
+            return View();
+
         }
         [HttpGet]
         public async Task<IActionResult> LockUser(Guid id)

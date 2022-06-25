@@ -33,6 +33,7 @@ namespace DrugstoreManagement.Application.System.Roles
         }
         public async Task<ApiResult<bool>> CreateRole(RoleVm vm)
         {
+            if (vm.Name == null) return new ApiErrorResult<bool>("Tên quyền không được để trống");
             var role = await _roleManager.FindByNameAsync(vm.Name);
             if (role != null) return new ApiErrorResult<bool>("Tên quyền đã tồn tại");
             role = new AppRole()
@@ -45,12 +46,38 @@ namespace DrugstoreManagement.Application.System.Roles
             {
                 return new ApiSuccessResult<bool>();
             }
-            return new ApiErrorResult<bool>("");
+            return new ApiErrorResult<bool>("Thêm mới quyền thất bại");
         }
 
-        //public async Task<ApiResult<bool>> UpdateRole(RoleVm vm)
-        //{
-        //    throw new NotImplementedException();
-        //}
+        public async Task<ApiResult<bool>> UpdateRole(RoleVm vm)
+        {
+            var role = await _roleManager.FindByIdAsync(vm.Id.ToString());
+            if (role.NormalizedName == "ADMIN") return new ApiErrorResult<bool>("Quyền ADMIN không thể sửa");
+            if (role != null) return new ApiErrorResult<bool>("Tên quyền đã tồn tại");
+            role = new AppRole()
+            {
+                Name = vm.Name,
+                Description = vm.Description
+            };
+            var result = await _roleManager.UpdateAsync(role);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>();
+            }
+            return new ApiErrorResult<bool>("Cập nhật quyền thất bại");
+        }
+
+        public async Task<ApiResult<bool>> DeleteRole(Guid id)
+        {
+            var role = await _roleManager.FindByIdAsync(id.ToString());
+            if (role == null) return new ApiErrorResult<bool>("Tên quyền không tồn tại");
+            if (role.NormalizedName == "ADMIN") return new ApiErrorResult<bool>("Quyền ADMIN không thể xóa");
+            var result = await _roleManager.DeleteAsync(role);
+            if (result.Succeeded)
+            {
+                return new ApiSuccessResult<bool>();
+            }
+            return new ApiErrorResult<bool>("Xóa quyền thất bại");
+        }
     }
 }

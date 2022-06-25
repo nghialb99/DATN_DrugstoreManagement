@@ -1,0 +1,65 @@
+﻿@model DrugstoreManagement.ViewModels.System.Roles.RoleVm
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Scripts{
+    <script>
+
+        const myTimeout = setTimeout(myGreeting, 5000);
+
+        function myGreeting() {
+          $('#msgAlert').fadeOut('slow')
+        }
+    </script>
+}
+<div class="pagetitle">
+      <h1>Thêm mới Role</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+          <li class="breadcrumb-item"><a asp-action="Index">Role</a></li>
+          <li class="breadcrumb-item active">Thêm mới</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card">
+            <div class="card-body">
+                @if (ViewBag.SuccessMsg != null)
+                {
+                    <div id="msgAlert" class="alert alert-danger alert-dismissible fade show" role="alert">
+                        @ViewBag.SuccessMsg
+                    </div>
+                }
+            </div>
+            <div class="card-body" style="overflow-x:auto"> 
+                <form class="row g-3 needs-validation" asp-action="Create" style="padding:5px 40px 5px 40px">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="col-md-4 position-relative">
+                        <label asp-for="Name" class="form-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 position-relative">
+                        <label asp-for="Description" class="form-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="col-md-12 position-relative center">
+                        <button type="submit" value="Thêm mới" class="btn-ct">Thêm mới</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
