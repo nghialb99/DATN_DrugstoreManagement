@@ -1085,6 +1085,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-ct {
+    
     display: inline-block;
     font-weight: bold;
     font-style: normal;
@@ -1168,4 +1169,71 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 10px;
     padding: 10px 0;
     width: 100%;
+}
+
+.btn-save {
+    visibility: hidden;
+    width: 10%;
+}
+.btn-save:hover {
+    color: #42eb08;
+    
+}
+.btn-cancel {
+    visibility: hidden;
+    width: 10%;
+}
+
+.btn-cancel:hover {
+    color: #f30909;
+}
+.btn-update {
+    width: 10%;
+}
+.btn-update:hover {
+    color: #073ef2;
+}
+
+.btn-save-1 {
+    width: 10%;
+}
+
+    .btn-save-1:hover {
+        color: #42eb08;
+    }
+
+.btn-cancel-1 {
+    width: 10%;
+}
+
+    .btn-cancel-1:hover {
+        color: #f30909;
+    }
+
+.btn-lock {
+    width: 10%;
+}
+
+    .btn-lock:hover {
+        color:red;
+    }
+.btn-unlock {
+    width: 10%;
+}
+
+    .btn-unlock:hover {
+        color: #42eb08;
+    }
+.btn-create {
+    width: 10%;
+}
+
+    .btn-create:hover {
+        color: #42eb08;
+    }
+.update-btn-click{
+    visibility: visible;
+}
+.update-btn-after-click {
+    visibility: hidden;
 }

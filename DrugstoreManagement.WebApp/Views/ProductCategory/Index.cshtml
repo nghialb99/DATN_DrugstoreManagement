@@ -1,0 +1,142 @@
+﻿@{
+    ViewData["Title"] = "Quản lý nhóm sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+
+        const myTimeout = setTimeout(myGreeting, 4000);
+
+        function myGreeting() {
+          $('#msgAlert').fadeOut('slow')
+        }
+    </script>
+}
+<div class="pagetitle">
+    <h1>Quản lý nhóm sản phẩm</h1>
+    <nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item">Danh mục</li>
+        <li class="breadcrumb-item">Nhóm sản phẩm</li>
+        @*<li class="breadcrumb-item active">Data</li>*@
+    </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<section class="section dashboard">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+
+          <!-- Multi Columns Form -->
+          <form class="row g-3">
+            
+            <div class="col-md-6">
+              <label class="form-label">Mã nhóm<a style="color: red;"> *</a></label>
+              <input type="text" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Tên nhóm sản phẩm<a style="color: red;"> *</a></label>
+              <input type="text" class="form-control">
+            </div>
+            
+            <div class="col-md-12">
+              <label class="form-label">Ghi chú</label>
+              <input type="text" class="form-control">
+            </div>
+           
+            <div class="col-md-12" style="text-align: center;">
+              <div class="card">
+                <div class="card-body ">
+                  <button type="submit" class="btn-ct btn-create">Thêm mới</button>
+                  <button type="submit" class="btn-ct btn-save-1" disabled>Lưu</button>
+                  <button type="submit" class="btn-ct btn-cancel-1" disabled>Hủy</button>
+                  <button type="submit" class="btn-ct btn-lock" disabled>Khóa</button>
+                  <button type="submit" class="btn-ct btn-unlock" disabled>Mở khóa</button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-body" style="overflow-x:auto">
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Mã nhóm</th>
+                      <th scope="col">Tên nhóm</th>
+                      <th scope="col">Ngày tạo</th>
+                      <th scope="col">Ghi chú</th>
+                      <th scope="col">Tác vụ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>VTYT</td>
+                      <td>Vật tư y tế</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>NKS</td>
+                      <td>Nhóm kháng sinh</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>TPCH</td>
+                      <td>Thực phẩm chức năng</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">4</th>
+                      <td>NKV</td>
+                      <td>Nhóm kháng viêm</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">5</th>
+                      <td>NKH</td>
+                      <td>Nhóm kháng Histamin</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">6</th>
+                      <td>NTG</td>
+                      <td>Nhóm trị giun</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">7</th>
+                      <td>KHAC</td>
+                      <td>Nhóm khác</td>
+                      <td>20/05/2022</td>
+                      <td></td>
+                      <td><a href="#">Sửa</a></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- End Table with stripped rows -->
+  
+              </div>
+              </div>
+            </div>
+        </form><!-- End Multi Columns Form -->
+      </div>
+    </div>
+</section>

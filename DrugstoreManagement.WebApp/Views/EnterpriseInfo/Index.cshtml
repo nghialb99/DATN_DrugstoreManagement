@@ -1,0 +1,114 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script>
+
+        const myTimeout = setTimeout(myGreeting, 4000);
+
+        function myGreeting() {
+          $('#msgAlert').fadeOut('slow')
+        }
+
+        let btn_save = document.getElementById("btn-save");
+        let btn_canel = document.getElementById("btn-cancel");
+        let btn_update = document.getElementById("btn-update");
+        let ip_bankName = document.getElementById("ip-bankName");
+        let ip_enterpriseName = document.getElementById("ip-enterpriseName");
+        let ip_address = document.getElementById("ip-address");
+        let ip_website = document.getElementById("ip-website");
+        let ip_phonenumber = document.getElementById("ip-phonenumber");
+        let ip_accNo = document.getElementById("ip-accNo");
+        let ip_email = document.getElementById("ip-email");
+
+        function visibleBtn() {
+            btn_save.classList.add("update-btn-click");
+            btn_canel.classList.add("update-btn-click");
+            btn_update.classList.add("update-btn-after-click");
+            ip_bankName.removeAttribute('disabled');
+            ip_enterpriseName.removeAttribute('disabled');
+            ip_address.removeAttribute('disabled');
+            ip_website.removeAttribute('disabled');
+            ip_phonenumber.removeAttribute('disabled');
+            ip_accNo.removeAttribute('disabled');
+            ip_email.removeAttribute('disabled');
+
+        }
+        function hiddenBtn() { 
+            btn_save.classList.remove("update-btn-click");
+            btn_canel.classList.remove("update-btn-click");
+            btn_update.classList.remove("update-btn-after-click");
+            //ip_email.disabled = true;
+        }
+        
+    </script>
+}
+<div class="pagetitle">
+    <h1>Thông tin cửa hàng</h1>
+    <nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item">Thông tin cửa hàng</li>
+        @*<li class="breadcrumb-item active">Data</li>*@
+    </ol>
+    </nav>
+</div><!-- End Page Title -->
+<section class="section dashboard">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+
+          <!-- Multi Columns Form -->
+          <form class="row g-3">
+            
+            <div class="col-md-6">
+              <label class="form-label">Tên cửa hàng</label>
+              <input type="text" class="form-control" value="NHÀ THUỐC PHARMATECH" disabled id="ip-enterpriseName"/>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Mã số thuế</label>
+              <input type="text" class="form-control" value="0302666666" disabled id="ip-enterpriseTaxcode">
+            </div>
+            
+            <div class="col-md-6">
+              <label class="form-label">Địa chỉ</label>
+              <input type="text" class="form-control" value="200 Mai Chí Thọ, Phường An Phú, Quận 2, Thành phố Hồ Chí Minh" disabled id="ip-address">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Website</label>
+              <input type="text" class="form-control" value="pharmatech.com" disabled id="ip-website">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Số điện thoại</label>
+              <input type="text" class="form-control" value="01987654322" disabled id="ip-phonenumber">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Số tài khoản</label>
+              <input type="text" class="form-control" value="02788899999334" disabled id="ip-accNo">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="text" class="form-control" value="pharmatech@gmail.com" disabled id="ip-email">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Tên ngân hàng</label>
+              <input type="text" class="form-control" value="Vietcombank - Chi nhánh Gia Định" disabled id="ip-bankName">
+            </div>
+            <div class="text-center">
+              <button  type="submit" class="btn-ct btn-save" id="btn-save" onclick="hiddenBtn()">
+                  <img src="/assets/Resouse/icons8-save-close-100.png" width="25" height="25"/>Lưu
+              </button>
+              
+              <button type="button" class="btn-ct btn-update" id="btn-update" onclick="visibleBtn()">
+                  <img src="/assets/Resouse/icons8-update-100.png" width="25" height="25"/>Cập nhật</button>
+
+              <button type="submit" class="btn-ct btn-cancel" id="btn-cancel" onclick="hiddenBtn()" >
+                  <img src="/assets/Resouse/icons8-cancel-100.png" width="25" height="25"/>Hủy</button>
+            </div>
+          </form><!-- End Multi Columns Form -->
+
+        </div>
+      </div>
+</section>
